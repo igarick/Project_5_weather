@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS sessions
 (
-    ID        UUID PRIMARY KEY NOT NULL,
-    UserId    SERIAL           NOT NULL,
-    ExpiresAt TIMESTAMP,
-    FOREIGN KEY (UserId) REFERENCES users (ID)
+    id         UUID PRIMARY KEY,
+    user_id    BIGINT,
+    expires_at TIMESTAMP,
+    CONSTRAINT fk_sessions_user FOREIGN KEY (user_id) REFERENCES users (id)
 )
