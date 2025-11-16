@@ -17,30 +17,36 @@
 
     <h2 class="text-center mb-5">Sign Up</h2>
 
-    <div class="row justify-content-center">
+    <div th:if="${#fields.hasErrors('repeatPassword')}" class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
             <div class="alert alert-danger" role="alert">
-                Passwords don't match.
+                <span th:errors="${repeatPassword}"></span>
             </div>
         </div>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-            <form action="#" class="mt-4">
+            <form th:method="POST" th:action="@{/auth/sign-up}" th:object="${userDto}" class="mt-4">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <div class="input-group has-validation">
-                        <input type="text" class="form-control is-invalid" id="username" name="username" required value=""/>
+
+                    <input type="text" class="form-control" id="username"
+                           th:field="*{name}"
+                           th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"/>
+
+                    <div th:if="${#fields.hasErrors('name')}" class="input-group has-validation">
                         <div class="invalid-feedback">
-                            Account with this email already exists.
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
                         </div>
                     </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group has-validation">
-                        <input type="password" class="form-control is-invalid" id="password" name="password" required value=""/>
+                        <input type="password" class="form-control is-invalid" id="password" name="password" required
+                               value=""/>
                         <div class="invalid-feedback">
                             Password must be at least 4 characters long.
                         </div>
