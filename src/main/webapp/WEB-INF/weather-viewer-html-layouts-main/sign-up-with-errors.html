@@ -20,7 +20,7 @@
     <div th:if="${#fields.hasErrors('repeatPassword')}" class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
             <div class="alert alert-danger" role="alert">
-                <span th:errors="${repeatPassword}"></span>
+                <span th:errors="*{repeatPassword}"></span>
             </div>
         </div>
     </div>
@@ -34,14 +34,10 @@
                     <input type="text" class="form-control" id="username"
                            th:field="*{name}"
                            th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"/>
-
-                    <div th:if="${#fields.hasErrors('name')}" class="input-group has-validation">
-                        <div class="invalid-feedback">
-                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
-                        </div>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                        <span th:errors="*{name}"></span>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group has-validation">
