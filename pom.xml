@@ -147,6 +147,13 @@
       <scope>test</scope>
     </dependency>
 
+<!--    PASSWORD HASHING-->
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+
 <!--&lt;!&ndash;    HikariCP&ndash;&gt;-->
 <!--    <dependency>-->
 <!--      <groupId>com.zaxxer</groupId>-->

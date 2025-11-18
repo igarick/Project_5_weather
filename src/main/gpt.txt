@@ -45,7 +45,7 @@ java
 @ComponentScan("org.weather")
 @PropertySource({"classpath:hibernate.properties", "classpath:application.properties"}) // ← ДВА ФАЙЛА
 @EnableTransactionManagement
-@EnableJpaRepositories("org.weather.repositories")
+@EnableJpaRepositories("org.weather.repository")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
     // ... остальной код без изменений ...

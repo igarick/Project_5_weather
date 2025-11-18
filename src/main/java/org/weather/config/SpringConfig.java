@@ -30,7 +30,7 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan("org.weather")
 @EnableTransactionManagement
-@EnableJpaRepositories("org.weather.repositories")
+@EnableJpaRepositories("org.weather.repository")
 @PropertySource("classpath:hibernate.properties")
 public class SpringConfig implements WebMvcConfigurer {
 
