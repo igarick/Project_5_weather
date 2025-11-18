@@ -42,11 +42,11 @@ public class RegistrationController {
         try {
             userService.registerUser(userDto.getName(), hashedPassword);
         } catch (DataIntegrityViolationException e) {
-            bindingResult.rejectValue("name", "","Account with this email already exists");
+            bindingResult.rejectValue("name", "", "Account with this email already exists");
 
             return "auth/sign-up";
         }
-                    //TODO - GO TO MAIN PAGE
+        //TODO - GO TO MAIN PAGE
         return "auth/sign-up";
     }
 }
