@@ -1,0 +1,36 @@
+<configuration>
+    <!-- Консоль -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Файл для Hibernate -->
+    <appender name="HIBERNATE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/hibernate.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/hibernate.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Уровень по умолчанию -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!-- Thymeleaf: только WARN -->
+    <logger name="org.thymeleaf" level="WARN"/>
+
+    <!-- Hibernate: INFO в отдельный файл -->
+    <logger name="org.hibernate" level="INFO" additivity="false">
+        <appender-ref ref="HIBERNATE_FILE"/>
+    </logger>
+
+    <!-- Твой сервис: INFO в консоль -->
+    <logger name="org.weather.service" level="INFO"/>
+</configuration>

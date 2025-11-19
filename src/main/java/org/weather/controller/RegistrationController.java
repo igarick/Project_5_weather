@@ -1,16 +1,15 @@
 package org.weather.controller;
 
 import jakarta.validation.Valid;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.weather.dto.UserRegistrationDto;
+import org.weather.dto.InputUserRegistrationDto;
+import org.weather.exception.DuplicateUserException;
 import org.weather.service.UserService;
 
 @Controller
@@ -24,29 +23,24 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public String showSignUpForm(@ModelAttribute("userDto") UserRegistrationDto userDto) {
+    public String showSignUpForm(@ModelAttribute("userDto") InputUserRegistrationDto userDto) {
         return "auth/sign-up";
     }
 
     @PostMapping()
-    public String processSignUp(@ModelAttribute("userDto") @Valid UserRegistrationDto userDto,
+    public String processSignUp(@ModelAttribute("userDto") @Valid InputUserRegistrationDto userDto,
                                 BindingResult bindingResult) {
         if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
             bindingResult.reject("", "Passwords don't match");
             return "auth/sign-up";
-
         }
-
-        String hashedPassword = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
 
         try {
-            userService.registerUser(userDto.getName(), hashedPassword);
-        } catch (DataIntegrityViolationException e) {
-            bindingResult.rejectValue("name", "", "Account with this email already exists");
-
+            userService.registerUser(userDto);
+        } catch (DuplicateUserException e) {
+            bindingResult.rejectValue("login", "", e.getErrorInfo().getMessage());
             return "auth/sign-up";
         }
-        //TODO - GO TO MAIN PAGE
-        return "auth/sign-up";
+        return "redirect:/auth/sign-in";
     }
 }
