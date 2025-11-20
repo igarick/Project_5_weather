@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @Getter
 @Builder
+@ToString
 @Entity
 @Table (name = "users", schema = "project_schema")
 public class User {

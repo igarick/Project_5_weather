@@ -30,6 +30,10 @@ public class RegistrationController {
     @PostMapping()
     public String processSignUp(@ModelAttribute("userDto") @Valid InputUserRegistrationDto userDto,
                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "auth/sign-up";
+        }
+
         if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
             bindingResult.reject("", "Passwords don't match");
             return "auth/sign-up";

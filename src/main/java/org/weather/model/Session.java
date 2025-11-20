@@ -1,10 +1,7 @@
 package org.weather.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -14,8 +11,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
-@Table(name = "sessions")
+@Table(name = "sessions", schema = "project_schema")
 public class Session {
 
     @Id
