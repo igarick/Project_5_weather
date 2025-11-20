@@ -1,11 +1,15 @@
 package org.weather.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.weather.dto.CookieDto;
 import org.weather.dto.InputUserLoginDto;
 import org.weather.dto.SessionIdDto;
 import org.weather.dto.UserIdDto;
@@ -13,6 +17,8 @@ import org.weather.exception.InvalidUserOrPasswordException;
 import org.weather.model.Session;
 import org.weather.service.SessionService;
 import org.weather.service.UserService;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth/sign-in")
@@ -34,9 +40,11 @@ public class LoginController {
     @PostMapping()
     public String showSignInForm(@ModelAttribute("userDto") @Valid InputUserLoginDto userDto,
                                  BindingResult bindingResult,
-                                 @CookieValue(value = "sessionIdParam", defaultValue = "") String sessionIdParam
-//                                 @CookieValue(value = "userId") String userIdParam
-                                 ) {
+                                 @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
+                                 HttpServletResponse response
+    ) {
+
+        System.out.println(sessionIdParam);
 
         // валидация ввода
         if (bindingResult.hasErrors()) {
@@ -56,7 +64,25 @@ public class LoginController {
         // если есть - то беру, если нет - создаю
         SessionIdDto sessionIdDto = sessionService.getSession(userId, sessionIdParam);
 
+        // установка кукиз
+        String sessionId = String.valueOf(sessionIdDto.getSessionId());
 
-        return "auth/sign-in";
+        ResponseCookie sessionIdCookie = ResponseCookie.from("sessionId", sessionId)
+                .httpOnly(true)
+                .path("/")
+                .maxAge(60 * 10)
+                .build();
+
+        response.addHeader("Set-Cookie", sessionIdCookie.toString());
+
+//        Cookie sessionIdCookie = new Cookie("sessionId", sessionId);
+//        sessionIdCookie.setPath("/");
+//        sessionIdCookie.setHttpOnly(true);
+//        sessionIdCookie.setMaxAge(60 * 2);
+//
+//        response.addCookie(sessionIdCookie);
+
+
+        return "redirect:/auth/sign-in";
     }
 }

@@ -33,32 +33,19 @@ public class SessionService {
         UUID sessionIdDto;
         if (sessionIdParam.isEmpty()) {
             Session session = createSession(userId);
-            log.info("Сессия без входного UUID создана для пользователя {}", session.getUser());
             sessionIdDto = session.getId();
-//            return new SessionIdDto(session.getId());
+            log.info("Сессия без входного UUID создана для пользователя {}", session.getUser());
         } else {
             UUID sessionId = UUID.fromString(sessionIdParam);
             Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
             Session session = sessionOptional.orElseThrow(() ->
             {
-                log.info("Ошибка получения сессии из репозитория по UUID");
+                log.error("Ошибка получения сессии из репозитория по UUID");
                 return new UnknownException(ErrorInfo.UNKNOWN_ERROR);
             });
 
-            log.info("Получение сессии {} из репозитория по UUID", session);
             sessionIdDto = session.getId();
-//            return new SessionIdDto(session.getId());
-
-
-//            if (sessionOptional.isEmpty()) {
-//                Session session = createSession(userId);
-//                log.info("Сессия создана для пользователя {}", session.getUser());
-//                return new SessionIdDto(session.getId());
-//            } else {
-//                Session session = sessionOptional.get();
-//                log.info("Сессия создана для пользователя {}", session.getUser());
-//                return new SessionIdDto(session.getId());
-//            }
+            log.info("Получение сессии {} из репозитория по UUID", session);
         }
         return new SessionIdDto(sessionIdDto);
     }
@@ -76,6 +63,7 @@ public class SessionService {
         session.setExpiresAt(dateTime);
 
         sessionRepository.save(session);
+
         return session;
     }
 }
