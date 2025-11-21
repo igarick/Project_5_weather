@@ -34,20 +34,24 @@ public class SessionService {
         if (sessionIdParam.isEmpty()) {
             Session session = createSession(userId);
             sessionIdDto = session.getId();
-            log.info("Сессия без входного UUID создана для пользователя {}", session.getUser());
+            log.info("Создана новая сессия для пользователя {}", session.getUser());
         } else {
             UUID sessionId = UUID.fromString(sessionIdParam);
             Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
-            Session session = sessionOptional.orElseThrow(() ->
-            {
-                log.error("Ошибка получения сессии из репозитория по UUID");
-                return new UnknownException(ErrorInfo.UNKNOWN_ERROR);
-            });
-
-            sessionIdDto = session.getId();
-            log.info("Получение сессии {} из репозитория по UUID", session);
+            if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
+                sessionIdDto = sessionOptional.get().getId();
+                log.info("Получена действующая сессия для пользователя {}", sessionOptional.get().getUser());
+            } else {
+                Session session = createSession(userId);
+                sessionIdDto = session.getId();
+                log.info("Старая сессия отсутствует/истекала. Создана новая сессия для пользователя {}", session.getUser());
+            }
         }
         return new SessionIdDto(sessionIdDto);
+    }
+
+    private boolean isExpired(Session session) {
+        return session.getExpiresAt().isBefore(OffsetDateTime.now());
     }
 
     private Session createSession(UserIdDto userId) {

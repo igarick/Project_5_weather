@@ -44,8 +44,6 @@ public class LoginController {
                                  HttpServletResponse response
     ) {
 
-        System.out.println(sessionIdParam);
-
         // валидация ввода
         if (bindingResult.hasErrors()) {
             return "auth/sign-in";
