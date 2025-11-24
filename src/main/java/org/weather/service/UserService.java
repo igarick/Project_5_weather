@@ -16,6 +16,7 @@ import org.weather.exception.InvalidUserOrPasswordException;
 import org.weather.model.User;
 import org.weather.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,6 +46,11 @@ public class UserService {
             throw new DuplicateUserException(ErrorInfo.LOGIN_DUPLICATE_ERROR, e);
         }
         log.info("Пользователь {} сохранен в базе данных", userDto.getLogin());
+    }
+
+    @Transactional
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
     }
 
     public UserIdDto authenticateUser(InputUserLoginDto userDto) {

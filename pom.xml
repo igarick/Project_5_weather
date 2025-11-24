@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>21</java.version>
-    <spring.version>6.2.10</spring.version>
+    <spring.version>6.2.11</spring.version>
     <jackson.version>2.17.2</jackson.version>
   </properties>
 
@@ -81,11 +81,11 @@
     </dependency>
 
     <!-- FLYWAY (совместим с PostgreSQL 16) -->
-<!--    <dependency>-->
-<!--      <groupId>org.flywaydb</groupId>-->
-<!--      <artifactId>flyway-core</artifactId>-->
-<!--      <version>10.12.0</version>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.flywaydb</groupId>-->
+    <!--      <artifactId>flyway-core</artifactId>-->
+    <!--      <version>10.12.0</version>-->
+    <!--    </dependency>-->
 
     <!-- В pom.xml ЗАМЕНИ версию Flyway -->
     <dependency>
@@ -118,12 +118,12 @@
       <version>${jackson.version}</version>
     </dependency>
 
-<!--    &lt;!&ndash; UTILS &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.antlr</groupId>-->
-<!--      <artifactId>antlr4-runtime</artifactId>-->
-<!--      <version>4.13.0</version>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; UTILS &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.antlr</groupId>-->
+    <!--      <artifactId>antlr4-runtime</artifactId>-->
+    <!--      <version>4.13.0</version>-->
+    <!--    </dependency>-->
 
     <!-- SERVLET API (ONLY PROVIDED) -->
     <dependency>
@@ -147,12 +147,12 @@
       <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>junit</groupId>-->
-<!--      <artifactId>junit</artifactId>-->
-<!--      <version>4.13.1</version>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>junit</groupId>-->
+    <!--      <artifactId>junit</artifactId>-->
+    <!--      <version>4.13.1</version>-->
+    <!--      <scope>test</scope>-->
+    <!--    </dependency>-->
 
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
     <dependency>
@@ -162,7 +162,17 @@
       <scope>test</scope>
     </dependency>
 
-<!--    PASSWORD HASHING-->
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.13.4</version>
+      <scope>test</scope>
+    </dependency>
+
+
+
+    <!--    PASSWORD HASHING-->
     <dependency>
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
@@ -183,12 +193,27 @@
       <version>1.5.13</version>
     </dependency>
 
-<!--&lt;!&ndash;    HikariCP&ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>com.zaxxer</groupId>-->
-<!--      <artifactId>HikariCP</artifactId>-->
-<!--      <version>5.1.0</version> &lt;!&ndash; актуальная версия &ndash;&gt;-->
-<!--    </dependency>-->
+    <!--&lt;!&ndash;    HikariCP&ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>com.zaxxer</groupId>-->
+    <!--      <artifactId>HikariCP</artifactId>-->
+    <!--      <version>5.1.0</version> &lt;!&ndash; актуальная версия &ndash;&gt;-->
+    <!--    </dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.27.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.2.224</version>
+      <scope>test</scope>
+    </dependency>
 
 
   </dependencies>
