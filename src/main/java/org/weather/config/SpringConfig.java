@@ -25,7 +25,7 @@ import java.util.Properties;
 
 @Configuration
 //@Profile("main")
-@Profile("!test")
+//@Profile("!test")
 @EnableWebMvc
 @ComponentScan("org.weather")
 @EnableTransactionManagement
@@ -136,7 +136,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
     // ---------- FLYWAY MIGRATIONS ----------
 
-    @Profile("!test")
+//    @Profile("!test")
     @Bean(initMethod = "migrate")
     public Flyway flyway(DataSource dataSource) {
         return Flyway.configure()

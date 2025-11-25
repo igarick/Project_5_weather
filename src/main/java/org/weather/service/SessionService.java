@@ -11,6 +11,7 @@ import org.weather.exception.UnknownException;
 import org.weather.model.Session;
 import org.weather.model.User;
 import org.weather.repository.SessionRepository;
+import org.weather.utils.SessionProperty;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -21,10 +22,12 @@ public class SessionService {
     private static final Logger log = LoggerFactory.getLogger(SessionService.class);
 
     private final SessionRepository sessionRepository;
+    private final SessionProperty sessionProperty;
 
     @Autowired
-    public SessionService(SessionRepository sessionRepository) {
+    public SessionService(SessionRepository sessionRepository, SessionProperty sessionProperty) {
         this.sessionRepository = sessionRepository;
+        this.sessionProperty = sessionProperty;
     }
 
     public SessionIdDto getSession(UserIdDto userId, String sessionIdParam) {
@@ -56,7 +59,7 @@ public class SessionService {
 
     private Session createSession(UserIdDto userId) {
         OffsetDateTime now = OffsetDateTime.now();
-        OffsetDateTime dateTime = now.plusSeconds(60);
+        OffsetDateTime dateTime = now.plusSeconds(sessionProperty.getSessionTimeout());
 
         Session session = new Session();
         UUID uuid = UUID.randomUUID();
@@ -70,4 +73,6 @@ public class SessionService {
 
         return session;
     }
+
+
 }

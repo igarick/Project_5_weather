@@ -36,6 +36,8 @@ import java.util.Properties;
 @ComponentScan(basePackages = {
         "org.weather.service",
         "org.weather.repository",
+        "org.weather.utils",
+
 })
 @PropertySource("classpath:hibernate-test.properties")
 public class SpringTestConfig {

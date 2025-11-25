@@ -6355,3 +6355,218 @@ insert into project_schema.users (login,password,id) values (?,?,default) [23505
 2025-11-24 22:05:26 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение уникального индекса или первичного ключа: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"
 Unique index or primary key violation: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"; SQL statement:
 insert into project_schema.users (login,password,id) values (?,?,default) [23505-224]
+2025-11-25 13:26:15 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 13:26:15 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 13:26:15 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 13:26:15 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 13:26:16 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 13:26:16 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 13:26:17 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 13:26:17 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23505, SQLState: 23505
+2025-11-25 13:26:17 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение уникального индекса или первичного ключа: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"
+Unique index or primary key violation: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"; SQL statement:
+insert into project_schema.users (login,password,id) values (?,?,default) [23505-224]
+2025-11-25 13:42:43 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 13:42:43 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 13:42:43 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 13:42:43 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 13:42:44 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 13:42:44 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 13:42:44 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 13:42:45 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23505, SQLState: 23505
+2025-11-25 13:42:45 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение уникального индекса или первичного ключа: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"
+Unique index or primary key violation: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"; SQL statement:
+insert into project_schema.users (login,password,id) values (?,?,default) [23505-224]
+2025-11-25 15:13:16 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:13:16 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:13:16 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:13:16 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:13:16 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:13:17 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:13:17 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:13:55 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:13:55 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:13:55 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:13:55 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:13:55 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:13:56 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:13:56 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:14:17 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:14:17 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:14:17 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:14:17 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:14:18 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:14:18 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:14:19 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:15:00 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:15:00 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:15:00 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:15:00 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:15:01 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:15:01 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:15:01 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:17:13 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:17:13 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:17:13 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:17:13 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:17:14 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:17:14 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:17:15 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:20:50 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:20:50 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:20:50 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:20:50 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:20:50 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:20:51 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:20:51 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:21:38 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:21:38 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:21:38 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:21:38 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:21:39 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:21:39 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:21:39 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:23:46 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:23:46 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:23:46 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:23:46 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:23:46 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:23:47 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:23:47 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:41:55 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:41:55 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:41:55 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:41:55 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:41:55 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:41:56 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:41:56 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:42:22 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:42:22 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:42:22 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:42:22 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:42:23 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:42:23 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:42:23 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:54:23 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:54:23 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:54:23 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:54:23 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:54:23 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:54:24 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:54:24 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:54:41 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:54:41 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:54:41 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:54:41 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:54:42 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:54:42 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:54:43 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:56:17 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:56:17 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:56:17 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:56:17 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:56:18 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:56:18 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:56:19 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:56:36 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:56:36 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:56:36 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:56:36 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:56:36 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:56:36 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:56:37 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:57:50 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:57:50 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:57:50 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:57:50 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:57:50 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:57:51 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:57:51 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:57:55 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23503, SQLState: 23503
+2025-11-25 15:57:55 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение ссылочной целостности: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"
+Referential integrity constraint violation: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"; SQL statement:
+delete from project_schema.users where id=? [23503-224]
+2025-11-25 15:57:55 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23503, SQLState: 23503
+2025-11-25 15:57:55 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение ссылочной целостности: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"
+Referential integrity constraint violation: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"; SQL statement:
+delete from project_schema.users where id=? [23503-224]
+2025-11-25 15:59:35 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 15:59:35 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 15:59:35 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 15:59:35 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 15:59:35 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 15:59:36 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 15:59:36 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 15:59:40 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23503, SQLState: 23503
+2025-11-25 15:59:40 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение ссылочной целостности: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"
+Referential integrity constraint violation: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"; SQL statement:
+delete from project_schema.users where id=? [23503-224]
+2025-11-25 15:59:40 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23503, SQLState: 23503
+2025-11-25 15:59:40 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение ссылочной целостности: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"
+Referential integrity constraint violation: "FKRUIE73RNEUMYYD1BGO6QW8VJT: PROJECT_SCHEMA.SESSIONS FOREIGN KEY(USER_ID) REFERENCES PROJECT_SCHEMA.USERS(ID) (CAST(1 AS BIGINT))"; SQL statement:
+delete from project_schema.users where id=? [23503-224]
+2025-11-25 19:02:40 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 19:02:40 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 19:02:40 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 19:02:40 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 19:02:41 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 19:02:41 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 19:02:42 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 19:03:20 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 19:03:20 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 19:03:20 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 19:03:20 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 19:03:20 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 19:03:21 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 19:03:21 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 19:03:22 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23505, SQLState: 23505
+2025-11-25 19:03:22 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение уникального индекса или первичного ключа: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"
+Unique index or primary key violation: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"; SQL statement:
+insert into project_schema.users (login,password,id) values (?,?,default) [23505-224]
+2025-11-25 19:10:49 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 19:10:49 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 19:10:49 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 19:10:49 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 19:10:49 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 19:10:50 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 19:10:50 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 19:10:51 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23505, SQLState: 23505
+2025-11-25 19:10:51 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение уникального индекса или первичного ключа: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"
+Unique index or primary key violation: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 1 */ 'login' )"; SQL statement:
+insert into project_schema.users (login,password,id) values (?,?,default) [23505-224]
+2025-11-25 19:12:46 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 19:12:46 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 19:12:46 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 19:12:46 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 19:12:47 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 19:12:47 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 19:12:47 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 19:12:51 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23505, SQLState: 23505
+2025-11-25 19:12:51 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение уникального индекса или первичного ключа: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 2 */ 'login' )"
+Unique index or primary key violation: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 2 */ 'login' )"; SQL statement:
+insert into project_schema.users (login,password,id) values (?,?,default) [23505-224]
+2025-11-25 19:15:22 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 19:15:22 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 19:15:22 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 19:15:22 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 19:15:22 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 19:15:22 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 19:15:23 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 19:16:50 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 19:16:50 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 19:16:50 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 19:16:50 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 19:16:50 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 19:16:50 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 19:16:51 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 19:16:55 WARN  o.h.e.jdbc.spi.SqlExceptionHelper -- SQL Error: 23505, SQLState: 23505
+2025-11-25 19:16:55 ERROR o.h.e.jdbc.spi.SqlExceptionHelper -- Нарушение уникального индекса или первичного ключа: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 2 */ 'login' )"
+Unique index or primary key violation: "PROJECT_SCHEMA.CONSTRAINT_INDEX_4 ON PROJECT_SCHEMA.USERS(LOGIN NULLS FIRST) VALUES ( /* 2 */ 'login' )"; SQL statement:
+insert into project_schema.users (login,password,id) values (?,?,default) [23505-224]
+2025-11-25 19:26:17 INFO  o.h.jpa.internal.util.LogHelper -- HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 19:26:17 INFO  org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-11-25 19:26:17 INFO  org.hibernate.cfg.Environment -- HHH000205: Loaded properties from resource hibernate.properties: {hibernate.format_sql=true, hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect, hibernate.driver_class=org.postgresql.Driver, hibernate.connection.password=****, hibernate.connection.username=postgres, hibernate.sessionTimeout.seconds=60, hibernate.connection.url=jdbc:postgresql://localhost:5432/weather_db, hibernate.show_sql=true}
+2025-11-25 19:26:17 INFO  o.h.c.i.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+2025-11-25 19:26:18 WARN  org.hibernate.orm.deprecation -- HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 19:26:18 INFO  o.h.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 19:26:19 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
