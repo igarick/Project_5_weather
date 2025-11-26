@@ -1,15 +1,12 @@
 package org.weather.controller;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.weather.dto.CookieDto;
 import org.weather.dto.InputUserLoginDto;
 import org.weather.dto.SessionIdDto;
 import org.weather.dto.UserIdDto;
@@ -18,7 +15,7 @@ import org.weather.model.Session;
 import org.weather.service.SessionService;
 import org.weather.service.UserService;
 
-import java.util.UUID;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/auth/sign-in")
@@ -60,7 +57,16 @@ public class LoginController {
 
         // проверка сессии
         // если есть - то беру, если нет - создаю
-        SessionIdDto sessionIdDto = sessionService.getSession(userId, sessionIdParam);
+//        SessionIdDto sessionIdDto = sessionService.getSession(userId, sessionIdParam);
+
+        SessionIdDto sessionIdDto = null;
+        Optional<SessionIdDto> sessionIdDtoOptional = sessionService.findCurrentSession(sessionIdParam);
+        if(sessionIdDtoOptional.isEmpty()) {
+            sessionIdDto = sessionService.createSession(userId);
+        } else {
+            sessionIdDto = sessionIdDtoOptional.get();
+        }
+
 
         // установка кукиз
         String sessionId = String.valueOf(sessionIdDto.getSessionId());
@@ -72,14 +78,6 @@ public class LoginController {
                 .build();
 
         response.addHeader("Set-Cookie", sessionIdCookie.toString());
-
-//        Cookie sessionIdCookie = new Cookie("sessionId", sessionId);
-//        sessionIdCookie.setPath("/");
-//        sessionIdCookie.setHttpOnly(true);
-//        sessionIdCookie.setMaxAge(60 * 2);
-//
-//        response.addCookie(sessionIdCookie);
-
 
         return "redirect:/auth/sign-in";
     }

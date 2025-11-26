@@ -18,7 +18,7 @@ import org.weather.repository.UserRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
@@ -39,20 +39,14 @@ public class SessionServiceTest {
     @Test
     void userSessionShouldBeExpired() throws InterruptedException {
         userService.registerUser(new InputUserRegistrationDto("login", "password", "password"));
-        Optional<User> byLogin = userRepository.findByLogin("login");
-        Long id = byLogin.get().getId();
-        UserIdDto userIdDto = new UserIdDto(id);
+        Long userId = userRepository.findByLogin("login").get().getId();
 
+        SessionIdDto sessionIdDto = sessionService.createSession(new UserIdDto(userId));
+        String sessionId = sessionIdDto.getSessionId().toString();
 
-        UUID sessionIdParam = UUID.randomUUID();
-        String sessionId = sessionIdParam.toString();
-        SessionIdDto session = sessionService.getSession(userIdDto, sessionId);
-        UUID firstId = session.getSessionId();
         Thread.sleep(1100);
 
-        SessionIdDto newSession = sessionService.getSession(userIdDto, firstId.toString());
-        UUID secondId = newSession.getSessionId();
-
-        assertNotEquals(firstId, secondId);
+        Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(sessionId);
+        assertTrue(currentSession.isEmpty());
     }
 }

@@ -42,15 +42,10 @@ public class UserService {
                     .build();
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
-            log.error("Ошибка при сохранении пользователя {} в базу данных", userDto.getLogin());
+            log.error("Ошибка при сохранении пользователя {} в базу данных. Такой логин уже существует", userDto.getLogin());
             throw new DuplicateUserException(ErrorInfo.LOGIN_DUPLICATE_ERROR, e);
         }
         log.info("Пользователь {} сохранен в базе данных", userDto.getLogin());
-    }
-
-    @Transactional
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
     }
 
     public UserIdDto authenticateUser(InputUserLoginDto userDto) {
