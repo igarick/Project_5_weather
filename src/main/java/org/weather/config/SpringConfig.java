@@ -1,5 +1,6 @@
 package org.weather.config;
 
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -21,6 +22,7 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
+import java.net.http.HttpClient;
 import java.util.Properties;
 
 @Configuration
@@ -143,5 +145,15 @@ public class SpringConfig implements WebMvcConfigurer {
                 .dataSource(dataSource)
                 .locations("classpath:db/migration")
                 .load();
+    }
+
+    @Bean
+    public HttpClient httpClient() {
+        return HttpClient.newHttpClient();
+    }
+
+    @Bean
+    public JsonMapper jsonMapper() {
+        return new JsonMapper();
     }
 }
