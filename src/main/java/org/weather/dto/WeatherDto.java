@@ -1,19 +1,22 @@
 package org.weather.dto;
 
-public class WeatherDto {
-//    "main": {
-//            "temp":276.74,
-//            "feels_like":273.53,
-//            "humidity":69,
-//    }
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
-//    "weather": [
-//        {
-//            "id": 800,
-//            "description": "clear sky",
-//            "icon": "01d"
-//        }
-//    ],
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class WeatherDto {
+    @JsonProperty("weather")
+    private List<WeatherInfoDto> weatherInfo;
+    @JsonProperty("main")
+    private WeatherBasePramsDto weatherBasePrams;
 
 
     //      брать из погоды

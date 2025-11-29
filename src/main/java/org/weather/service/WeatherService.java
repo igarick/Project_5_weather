@@ -1,10 +1,14 @@
 package org.weather.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.weather.dto.LocationDto;
+import org.weather.dto.WeatherDto;
 import org.weather.exception.*;
 
 import java.io.IOException;
@@ -18,9 +22,9 @@ import java.util.List;
 
 @Service
 public class WeatherService {
-    //    private final HttpClient client = HttpClient.newHttpClient();
-    private final HttpClient client;
+    private final Logger log = LoggerFactory.getLogger(WeatherService.class);
 
+    private final HttpClient client;
     private final JsonMapper jsonMapper;
 
     @Autowired
@@ -29,46 +33,61 @@ public class WeatherService {
         this.jsonMapper = jsonMapper;
     }
 
-    public List<LocationDto> getLocationByCityName(String city) throws IOException, InterruptedException {
+    public List<LocationDto> getLocationByCityName(String city) {
+        log.info("Формирование запроса для получения локации по городу {} к API", city);
         String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
         String url = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=10&appid=810674edcfe03956f3d710e75080d5c8", encodedCity);
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .GET()
-                .build();
+        String body = getWeatherApiResponse(url);
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() != 200) {
-            handleStatusCode(response.statusCode());
+        List<LocationDto> locations = null;
+        try {
+            locations = jsonMapper.readValue(body, new TypeReference<List<LocationDto>>() {});
+        } catch (JsonProcessingException e) {
+            log.error("Ошибка при десериализации");
+            throw new SerializationOrDeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
         }
-
-        String body = response.body();
-
-        List<LocationDto> locations = jsonMapper.readValue(body, new TypeReference<List<LocationDto>>() {});
-
+        log.info("Получены локация для {}", city);
         return locations;
     }
 
-    public String getWeatherByCoordinates(String latitude, String longitude) throws IOException, InterruptedException {
+    public WeatherDto getWeatherByCoordinates(String latitude, String longitude) {
+        log.info("Формирование запроса для получения погоды по координатам lat = {} lon = {} к API", latitude, longitude);
         String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=810674edcfe03956f3d710e75080d5c8", latitude, longitude);
+        String body = getWeatherApiResponse(url);
+
+        WeatherDto weatherDto = null;
+        try {
+            weatherDto = jsonMapper.readValue(body, new TypeReference<WeatherDto>() {});
+        } catch (JsonProcessingException e) {
+            log.error("Ошибка при десериализации");
+            throw new SerializationOrDeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
+        }
+        log.info("Получены погода по координатам lat = {} lon = {} к API", latitude, longitude);
+        return weatherDto;
+    }
+
+    private String getWeatherApiResponse(String url) {
+        log.info("Запрос к API по url = {}", url);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() != 200) {
-            handleStatusCode(response.statusCode());
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            log.warn("Ошибка при обращение к API, {}", e.getMessage());
+            throw new UnexpectedWeatherApiException(ErrorInfo.UNEXPECTED_API_ERROR);
         }
 
-        String body = response.body();
-
-
-
-        return body;
+        if (response.statusCode() != 200) {
+            log.warn("Ответ API с ошибкой - {}", response.statusCode());
+            handleStatusCode(response.statusCode());
+        }
+        log.info("Успешный ответ от API");
+        return response.body();
     }
 
     private void handleStatusCode(int code) {

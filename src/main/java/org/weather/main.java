@@ -2,6 +2,7 @@ package org.weather;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.weather.dto.LocationDto;
+import org.weather.dto.WeatherDto;
 import org.weather.service.WeatherService;
 
 import java.io.IOException;
@@ -16,21 +17,22 @@ public class main {
         WeatherService weatherService = new WeatherService(httpClient, jsonMapper);
 
 //        String city = "San Francisco";
-        String city = "1";
-        List<LocationDto> locationDtos = weatherService.getLocationByCityName(city);
-
-        for (LocationDto locationDto : locationDtos) {
-            System.out.println(locationDto);
-
-        }
+////        String city = "1";
+//        List<LocationDto> locationDtos = weatherService.getLocationByCityName(city);
+//
+//        for (LocationDto locationDto : locationDtos) {
+//            System.out.println(locationDto);
+//        }
 
 
 //        System.out.println("");
 //
-//        String lat = "37.7749";
-//        String lon = "-122.4194";
+        String lat = "37.7749";
+        String lon = "-122.4194";
+
+        WeatherDto weatherByCoordinates = weatherService.getWeatherByCoordinates(lat, lon);
 //        String weatherByCoordinates = weatherService.getWeatherByCoordinates(lat, lon);
-//        System.out.println(weatherByCoordinates);
+        System.out.println(weatherByCoordinates);
     }
 
 }

@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.weather.dto.LocationDto;
+import org.weather.dto.WeatherDto;
+import org.weather.exception.UnexpectedWeatherApiException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -17,6 +19,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -59,5 +62,15 @@ public class WeatherServiceTest {
         assertEquals("San Francisco", city.getName());
         assertEquals(new BigDecimal("8.2467485"), city.getLatitude());
         verify(mockClient, times(1)).send(any(), any());
+    }
+
+    @Test
+    void invalidStatusCodeShouldThrowException() throws IOException, InterruptedException {
+        when(mockResponse.statusCode()).thenReturn(500);
+        when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+
+        assertThrows(UnexpectedWeatherApiException.class,
+                () -> weatherService.getWeatherByCoordinates("16.3721", "48.2085"));
+
     }
 }

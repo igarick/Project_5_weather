@@ -25,7 +25,7 @@ public class LocationDto {
     String state;
 
 
-    // вместо null при сериализации в дто
+    // вместо null при десериализации в дто
 //    String state = "none";
 
 
