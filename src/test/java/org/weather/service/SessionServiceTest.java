@@ -42,11 +42,10 @@ public class SessionServiceTest {
         Long userId = userRepository.findByLogin("login").get().getId();
 
         SessionIdDto sessionIdDto = sessionService.createSession(new UserIdDto(userId));
-        String sessionId = sessionIdDto.getSessionId().toString();
 
         Thread.sleep(1100);
 
-        Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(sessionId);
+        Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(sessionIdDto);
         assertTrue(currentSession.isEmpty());
     }
 }

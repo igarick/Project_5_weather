@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.weather.dto.LocationNameDto;
 import org.weather.dto.LocationDto;
 import org.weather.dto.WeatherDto;
 import org.weather.exception.*;
@@ -33,9 +34,10 @@ public class WeatherService {
         this.jsonMapper = jsonMapper;
     }
 
-    public List<LocationDto> getLocationByCityName(String city) {
-        log.info("Формирование запроса для получения локации по городу {} к API", city);
-        String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
+    public List<LocationDto> getLocationByCityName(LocationNameDto locationNameDto) {
+        log.info("Формирование запроса для получения локации по городу {} к API", locationNameDto);
+        String localName = locationNameDto.getLocalName();
+        String encodedCity = URLEncoder.encode(localName, StandardCharsets.UTF_8);
         String url = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=10&appid=810674edcfe03956f3d710e75080d5c8", encodedCity);
 
         String body = getWeatherApiResponse(url);
@@ -47,7 +49,7 @@ public class WeatherService {
             log.error("Ошибка при десериализации");
             throw new SerializationOrDeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
         }
-        log.info("Получены локация для {}", city);
+        log.info("Получены локация для {}", localName);
         return locations;
     }
 

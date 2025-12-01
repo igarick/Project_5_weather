@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.weather.dto.LocationNameDto;
 import org.weather.dto.LocationDto;
 import org.weather.service.WeatherService;
 
@@ -23,7 +24,8 @@ public class WeatherController {
     @GetMapping
     public void getWeather() throws IOException, InterruptedException {
         String city = "San Francisco";
-        List<LocationDto> location = weatherService.getLocationByCityName(city);
+        LocationNameDto locationNameDto = new LocationNameDto(city);
+        List<LocationDto> location = weatherService.getLocationByCityName(locationNameDto);
         System.out.println(location);
 
 

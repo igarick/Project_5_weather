@@ -1,5 +1,6 @@
 package org.weather.config;
 
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import jakarta.persistence.EntityManagerFactory;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.net.http.HttpClient;
 import java.util.Properties;
 
 //@Profile("test")
@@ -131,6 +133,16 @@ public class SpringTestConfig {
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
+    }
+
+    @Bean
+    public HttpClient httpClient() {
+        return HttpClient.newHttpClient();
+    }
+
+    @Bean
+    public JsonMapper jsonMapper() {
+        return new JsonMapper();
     }
 
 //    @Bean

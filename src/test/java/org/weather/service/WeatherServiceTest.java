@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.weather.dto.LocationNameDto;
 import org.weather.dto.LocationDto;
-import org.weather.dto.WeatherDto;
 import org.weather.exception.UnexpectedWeatherApiException;
 
 import java.io.IOException;
@@ -56,7 +55,8 @@ public class WeatherServiceTest {
         when(mockResponse.statusCode()).thenReturn(200);
         when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        List<LocationDto> locations = weatherService.getLocationByCityName("San Francisco");
+        LocationNameDto locationNameDto = new LocationNameDto("San Francisco");
+        List<LocationDto> locations = weatherService.getLocationByCityName(locationNameDto);
         LocationDto city = locations.get(0);
 
         assertEquals("San Francisco", city.getName());

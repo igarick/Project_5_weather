@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.weather.dto.InputUserLoginDto;
@@ -16,6 +17,7 @@ import org.weather.service.SessionService;
 import org.weather.service.UserService;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth/sign-in")
@@ -42,7 +44,14 @@ public class LoginController {
     ) {
 
         // валидация ввода
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || !StringUtils.hasText(sessionIdParam)) {
+            return "auth/sign-in";
+        }
+
+        UUID sessionIdFromCookies = null;
+        try {
+            sessionIdFromCookies = UUID.fromString(sessionIdParam);
+        } catch (IllegalArgumentException e) {
             return "auth/sign-in";
         }
 
@@ -56,20 +65,28 @@ public class LoginController {
         }
 
         // проверка сессии
-        // если есть - то беру, если нет - создаю
-//        SessionIdDto sessionIdDto = sessionService.getSession(userId, sessionIdParam);
-
-        SessionIdDto sessionIdDto = null;
-        Optional<SessionIdDto> sessionIdDtoOptional = sessionService.findCurrentSession(sessionIdParam);
-        if(sessionIdDtoOptional.isEmpty()) {
-            sessionIdDto = sessionService.createSession(userId);
+        SessionIdDto sessionIdFromCookiesDto = new SessionIdDto(sessionIdFromCookies);
+        SessionIdDto currentSessionIdDto = null;
+        Optional<SessionIdDto> currentSessionOptional = sessionService.findCurrentSession(sessionIdFromCookiesDto);
+        if (currentSessionOptional.isEmpty()) {
+            currentSessionIdDto = sessionService.createSession(userId);
         } else {
-            sessionIdDto = sessionIdDtoOptional.get();
+            currentSessionIdDto = currentSessionOptional.get();
         }
 
 
+//        SessionIdDto sessionIdDto = null;
+//        Optional<SessionIdDto> sessionIdDtoOptional = sessionService.findCurrentSession(sessionIdParam);
+//        if(sessionIdDtoOptional.isEmpty()) {
+//            sessionIdDto = sessionService.createSession(userId);
+//        } else {
+//            sessionIdDto = sessionIdDtoOptional.get();
+//        }
+
+
         // установка кукиз
-        String sessionId = String.valueOf(sessionIdDto.getSessionId());
+        String sessionId = String.valueOf(currentSessionIdDto.getSessionId());
+//        String sessionId = String.valueOf(sessionIdDto.getSessionId());
 
         ResponseCookie sessionIdCookie = ResponseCookie.from("sessionId", sessionId)
                 .httpOnly(true)

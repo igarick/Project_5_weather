@@ -29,18 +29,30 @@ public class SessionService {
         this.sessionProperty = sessionProperty;
     }
 
-    public Optional<SessionIdDto> findCurrentSession(String sessionIdParam) {
-        log.info("Начат процесс поиска сессии для {}", sessionIdParam);
-        if (StringUtils.hasText(sessionIdParam)) {  //sessionIdParam != null || !sessionIdParam.isBlank()
-            UUID sessionId = UUID.fromString(sessionIdParam);
-            Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
-            if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
-                log.info("Получена действующая сессия для пользователя {}", sessionOptional.get().getUser().getLogin());
-                return Optional.of(new SessionIdDto(sessionOptional.get().getId()));
-            }
+    public Optional<SessionIdDto> findCurrentSession(SessionIdDto sessionIdDto) {
+        UUID sessionId = sessionIdDto.getSessionId();
+        log.info("Начат процесс поиска сессии для UUID = {}", sessionId.toString());
+
+        Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
+
+        if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
+            log.info("Получена действующая сессия для пользователя {}", sessionOptional.get().getUser().getLogin());
+            return Optional.of(new SessionIdDto(sessionOptional.get().getId()));
         }
+
         log.warn("Сессия для данного пользователя истекла или ее нет");
         return Optional.empty();
+
+//        if (StringUtils.hasText(sessionIdParam)) {  //sessionIdParam != null || !sessionIdParam.isBlank()
+//            UUID sessionId = UUID.fromString(sessionIdParam);
+//            Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
+//            if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
+//                log.info("Получена действующая сессия для пользователя {}", sessionOptional.get().getUser().getLogin());
+//                return Optional.of(new SessionIdDto(sessionOptional.get().getId()));
+//            }
+//        }
+//        log.warn("Сессия для данного пользователя истекла или ее нет");
+//        return Optional.empty();
     }
 
 //    public SessionIdDto getSession(UserIdDto userId, String sessionIdParam) {
