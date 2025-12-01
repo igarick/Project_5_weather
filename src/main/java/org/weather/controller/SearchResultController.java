@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/search-result")
+@RequestMapping("/search-results")
 public class SearchResultController {
     private final SessionService sessionService;
     private final WeatherService weatherService;
@@ -32,16 +32,16 @@ public class SearchResultController {
 
     @GetMapping
     public String getLocations() {
-        return "search-result";
+        return "search-results";
     }
 
     @PostMapping
-    public String searchLocation(@RequestParam("locationNameParam") String locationNameParam,     //@ModelAttribute("localName") String localNameParam,
+    public String searchLocation(@RequestParam("locationName") String locationNameParam,     //@ModelAttribute("localName") String localNameParam,
                                  @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                                  Model model, HttpServletResponse response) {
 
         if(!StringUtils.hasText(locationNameParam)) {
-            return "search-result";
+            return "search-results";
         }
 
         if (!StringUtils.hasText(sessionIdParam)) {
@@ -74,7 +74,7 @@ public class SearchResultController {
                 .build();
 
         response.addHeader("Set-Cookie", sessionId.toString());
-
-        return "search-result";
+//-----------------------------???????????????????------------------,,,,,,???????????????????---------------------------------------------------------------------------------
+        return "search-results?locationName=" + locationNameParam;
     }
 }

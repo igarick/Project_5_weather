@@ -2,6 +2,8 @@ package org.weather.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/auth/sign-in")
 public class LoginController {
+    private final Logger log = LoggerFactory.getLogger(LoginController.class);
+
     private final UserService userService;
     private final SessionService sessionService;
 
@@ -33,6 +37,7 @@ public class LoginController {
 
     @GetMapping()
     public String showSignUpForm(@ModelAttribute("userDto") InputUserLoginDto userDto) {
+        log.info("Enter the get mapping");
         return "auth/sign-in";
     }
 
@@ -44,15 +49,18 @@ public class LoginController {
     ) {
 
         // валидация ввода
-        if (bindingResult.hasErrors() || !StringUtils.hasText(sessionIdParam)) {
+        if (bindingResult.hasErrors()) {
             return "auth/sign-in";
         }
 
         UUID sessionIdFromCookies = null;
-        try {
-            sessionIdFromCookies = UUID.fromString(sessionIdParam);
-        } catch (IllegalArgumentException e) {
-            return "auth/sign-in";
+        if (StringUtils.hasText(sessionIdParam)) {
+            try {
+                sessionIdFromCookies = UUID.fromString(sessionIdParam);
+            } catch (IllegalArgumentException e) {
+                log.warn("Invalid sessionId cookie {}", sessionIdFromCookies);
+                sessionIdFromCookies = null;
+            }
         }
 
         // аутентификация пользователя
@@ -65,14 +73,30 @@ public class LoginController {
         }
 
         // проверка сессии
-        SessionIdDto sessionIdFromCookiesDto = new SessionIdDto(sessionIdFromCookies);
-        SessionIdDto currentSessionIdDto = null;
-        Optional<SessionIdDto> currentSessionOptional = sessionService.findCurrentSession(sessionIdFromCookiesDto);
-        if (currentSessionOptional.isEmpty()) {
+        SessionIdDto currentSessionIdDto;
+        if (sessionIdFromCookies == null) {
             currentSessionIdDto = sessionService.createSession(userId);
         } else {
-            currentSessionIdDto = currentSessionOptional.get();
+            Optional<SessionIdDto> currentOptional = sessionService.findCurrentSession(new SessionIdDto(sessionIdFromCookies));
+            UserIdDto finalUserId = userId;
+            currentSessionIdDto = currentOptional.orElseGet(() -> sessionService.createSession(finalUserId));
+
+
+//            if (currentSessionOptional.isEmpty()) {
+//                currentSessionIdDto = sessionService.createSession(userId);
+//            } else {
+//                currentSessionIdDto = currentSessionOptional.get();
+//            }
         }
+
+//        SessionIdDto sessionIdFromCookiesDto = new SessionIdDto(sessionIdFromCookies);
+//        SessionIdDto currentSessionIdDto = null;
+//        Optional<SessionIdDto> currentSessionOptional = sessionService.findCurrentSession(sessionIdFromCookiesDto);
+//        if (currentSessionOptional.isEmpty()) {
+//            currentSessionIdDto = sessionService.createSession(userId);
+//        } else {
+//            currentSessionIdDto = currentSessionOptional.get();
+//        }
 
 
 //        SessionIdDto sessionIdDto = null;
@@ -96,6 +120,6 @@ public class LoginController {
 
         response.addHeader("Set-Cookie", sessionIdCookie.toString());
 
-        return "redirect:/auth/sign-in";
+        return "redirect:/search-results";
     }
 }
