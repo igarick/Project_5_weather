@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "locations", schema = "project_schema")
 public class Location {

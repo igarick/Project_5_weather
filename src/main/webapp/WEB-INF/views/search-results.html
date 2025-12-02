@@ -24,7 +24,7 @@
 <section id="page-content">
     <div class="container mt-4">
         <div class="d-flex my-4">
-            <form action="/search-results" method="post" class="w-100">
+            <form th:action="@{/search-results}" method="post" class="w-100">
 <!--                <div class="input-group location-search-input-group me-3">-->
                 <div class="input-group">
                     <input class="form-control" type="text" name="locationName" placeholder="Enter location" required>
@@ -51,7 +51,12 @@
                             <p class="card-text mb-1">Country: <span th:text="${location.getCountry()}">N/A</span></p>
                             <p class="card-text mb-3">State: <span th:text="${location.getState()}">N/A</span></p>
                             <div class="mt-auto">
-                                <button class="btn btn-primary w-100">Add</button>
+                                <form th:action="@{/location/add}" method="post">
+                                    <input type="hidden" name="locationName" th:value="${location.getName()}">
+                                    <input type="hidden" name="latitude" th:value="${location.getLatitude()}">
+                                    <input type="hidden" name="longitude" th:value="${location.getLongitude()}">
+                                <button class="btn btn-primary w-100" type="submit">Add</button>
+                                </form>
                             </div>
                         </div>
                     </div>

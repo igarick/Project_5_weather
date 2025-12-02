@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import org.weather.dto.InputUserLoginDto;
 import org.weather.dto.SessionIdDto;
 import org.weather.dto.UserIdDto;
+import org.weather.exception.CookieValidationException;
 import org.weather.exception.InvalidUserOrPasswordException;
 import org.weather.model.Session;
 import org.weather.service.SessionService;
 import org.weather.service.UserService;
+import org.weather.validator.CookieParamValidatorAndHandler;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -28,11 +30,13 @@ public class LoginController {
 
     private final UserService userService;
     private final SessionService sessionService;
+    private final CookieParamValidatorAndHandler validatorAndHandler;
 
     @Autowired
-    public LoginController(UserService userService, SessionService sessionService) {
+    public LoginController(UserService userService, SessionService sessionService, CookieParamValidatorAndHandler validatorAndHandler) {
         this.userService = userService;
         this.sessionService = sessionService;
+        this.validatorAndHandler = validatorAndHandler;
     }
 
     @GetMapping()
@@ -53,18 +57,26 @@ public class LoginController {
             return "auth/sign-in";
         }
 
+//        UUID sessionIdFromCookies = null;
+//        if (StringUtils.hasText(sessionIdParam)) {
+//            try {
+//                sessionIdFromCookies = UUID.fromString(sessionIdParam);
+//            } catch (IllegalArgumentException e) {
+//                log.warn("Invalid sessionId cookie {}", sessionIdFromCookies);
+//                sessionIdFromCookies = null;
+//            }
+//        }
+
         UUID sessionIdFromCookies = null;
-        if (StringUtils.hasText(sessionIdParam)) {
-            try {
-                sessionIdFromCookies = UUID.fromString(sessionIdParam);
-            } catch (IllegalArgumentException e) {
-                log.warn("Invalid sessionId cookie {}", sessionIdFromCookies);
-                sessionIdFromCookies = null;
-            }
+        try {
+            sessionIdFromCookies = validatorAndHandler.extractSessionId(sessionIdParam);
+        } catch (CookieValidationException e) {
+            log.warn("Invalid sessionId cookie {}", sessionIdFromCookies);
+            sessionIdFromCookies = null;
         }
 
         // аутентификация пользователя
-        UserIdDto userId = null;
+        UserIdDto userId;
         try {
             userId = userService.authenticateUser(userDto);
         } catch (InvalidUserOrPasswordException e) {
@@ -109,13 +121,13 @@ public class LoginController {
 
 
         // установка кукиз
-        String sessionId = String.valueOf(currentSessionIdDto.getSessionId());
+        String sessionIdStr = String.valueOf(currentSessionIdDto.getSessionId());
 //        String sessionId = String.valueOf(sessionIdDto.getSessionId());
 
-        ResponseCookie sessionIdCookie = ResponseCookie.from("sessionId", sessionId)
+        ResponseCookie sessionIdCookie = ResponseCookie.from("sessionId", sessionIdStr)
                 .httpOnly(true)
                 .path("/")
-                .maxAge(60 * 10)
+                .maxAge(60 * 1)
                 .build();
 
         response.addHeader("Set-Cookie", sessionIdCookie.toString());
