@@ -35,6 +35,7 @@ public class CookieParamValidatorAndHandler {
 
     public UUID extractSessionId(String sessionIdParam) {
         if (!StringUtils.hasText(sessionIdParam)) {
+            log.warn("Session not found");
             throw new CookieValidationException(ErrorInfo.SESSION_NOT_FOUND);
         }
 

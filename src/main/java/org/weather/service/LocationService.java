@@ -29,6 +29,7 @@ public class LocationService {
     }
 
     public void save(LocationToSaveDto locationDto) {
+        log.info("Start saving location");
         Optional<Session> sessionOptional = sessionRepository.findById(locationDto.getSessionId());
         Session session = sessionOptional.get();
         Long id = session.getUser().getId();
