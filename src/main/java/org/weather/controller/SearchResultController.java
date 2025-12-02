@@ -74,7 +74,6 @@ public class SearchResultController {
                 .build();
 
         response.addHeader("Set-Cookie", sessionId.toString());
-//-----------------------------???????????????????------------------,,,,,,???????????????????---------------------------------------------------------------------------------
-        return "search-results?locationName=" + locationNameParam;
+        return "search-results";
     }
 }
