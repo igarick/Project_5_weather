@@ -15,14 +15,7 @@ import java.util.UUID;
 @ToString
 public class LocationToSaveDto {
     private UUID sessionId;
-
-    @NotNull
-    @NotBlank
     private String locationName;
-
-    @NotNull
     private BigDecimal latitude;
-
-    @NotNull
     private BigDecimal longitude;
 }

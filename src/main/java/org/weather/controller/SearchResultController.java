@@ -1,6 +1,7 @@
 package org.weather.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.weather.validator.CookieParamValidatorAndHandler;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/search-results")
 public class SearchResultController {
@@ -43,26 +45,9 @@ public class SearchResultController {
                                  Model model, HttpServletResponse response) {
 
         if(!StringUtils.hasText(locationNameParam)) {
+            log.info("Input is empty");
             return "search-results";
         }
-
-//        if (!StringUtils.hasText(sessionIdParam)) {
-//            return "redirect:/auth/sign-in";
-//        }
-//
-//        UUID sessionIdFomCookies = null;
-//        try {
-//            sessionIdFomCookies = UUID.fromString(sessionIdParam);
-//        } catch (IllegalArgumentException e) {
-//            return "redirect:/auth/sign-in";
-//        }
-//
-////        SessionIdDto sessionIdFomCookiesDto = new SessionIdDto(sessionIdFomCookies);
-//        Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(new SessionIdDto(sessionIdFomCookies));
-//        if (currentSession.isEmpty()) {
-//            return "redirect:/auth/sign-in";
-//        }
-//        String currentSessionId = String.valueOf(currentSession.get().getSessionId());
 
         SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdParam);
         String sessionIdStr = String.valueOf(currentSessionIdDto.getSessionId());
@@ -71,8 +56,6 @@ public class SearchResultController {
         List<LocationDto> locations = weatherService.getLocationByCityName(locationNameDto);
 
         model.addAttribute("locations", locations);
-        //проба
-        model.addAttribute("locationToSaveDto", new LocationToSaveDto());
 
         ResponseCookie sessionId = ResponseCookie.from("sessionId", sessionIdStr)
                 .httpOnly(true)

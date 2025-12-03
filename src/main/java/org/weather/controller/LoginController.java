@@ -49,21 +49,10 @@ public class LoginController {
                                  @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                                  HttpServletResponse response
     ) {
-
         // валидация ввода
         if (bindingResult.hasErrors()) {
             return "auth/sign-in";
         }
-
-//        UUID sessionIdFromCookies = null;
-//        if (StringUtils.hasText(sessionIdParam)) {
-//            try {
-//                sessionIdFromCookies = UUID.fromString(sessionIdParam);
-//            } catch (IllegalArgumentException e) {
-//                log.warn("Invalid sessionId cookie {}", sessionIdFromCookies);
-//                sessionIdFromCookies = null;
-//            }
-//        }
 
         UUID sessionIdFromCookies = null;
         try {
@@ -89,37 +78,10 @@ public class LoginController {
         } else {
             Optional<SessionIdDto> currentOptional = sessionService.findCurrentSession(new SessionIdDto(sessionIdFromCookies));
             currentSessionIdDto = currentOptional.orElseGet(() -> sessionService.createSession(userId));
-
-
-//            if (currentSessionOptional.isEmpty()) {
-//                currentSessionIdDto = sessionService.createSession(userId);
-//            } else {
-//                currentSessionIdDto = currentSessionOptional.get();
-//            }
         }
-
-//        SessionIdDto sessionIdFromCookiesDto = new SessionIdDto(sessionIdFromCookies);
-//        SessionIdDto currentSessionIdDto = null;
-//        Optional<SessionIdDto> currentSessionOptional = sessionService.findCurrentSession(sessionIdFromCookiesDto);
-//        if (currentSessionOptional.isEmpty()) {
-//            currentSessionIdDto = sessionService.createSession(userId);
-//        } else {
-//            currentSessionIdDto = currentSessionOptional.get();
-//        }
-
-
-//        SessionIdDto sessionIdDto = null;
-//        Optional<SessionIdDto> sessionIdDtoOptional = sessionService.findCurrentSession(sessionIdParam);
-//        if(sessionIdDtoOptional.isEmpty()) {
-//            sessionIdDto = sessionService.createSession(userId);
-//        } else {
-//            sessionIdDto = sessionIdDtoOptional.get();
-//        }
-
 
         // установка кукиз
         String sessionIdStr = String.valueOf(currentSessionIdDto.getSessionId());
-//        String sessionId = String.valueOf(sessionIdDto.getSessionId());
 
         ResponseCookie sessionIdCookie = ResponseCookie.from("sessionId", sessionIdStr)
                 .httpOnly(true)
