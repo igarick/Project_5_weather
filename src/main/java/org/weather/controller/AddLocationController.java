@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/location/add")
+@RequestMapping("/location")
 public class AddLocationController {
     private final Logger log = LoggerFactory.getLogger(AddLocationController.class);
 
@@ -29,12 +29,12 @@ public class AddLocationController {
         this.locationService = locationService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public String addLocation(@CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                               @RequestParam("locationName") String locationNameParam,
                               @RequestParam("latitude") String latitudeParam,
                               @RequestParam("longitude") String longitudeParam
-                              ) {
+    ) {
 
         if ((locationNameParam == null || locationNameParam.isBlank())
             || (latitudeParam == null || latitudeParam.isBlank())
@@ -54,6 +54,12 @@ public class AddLocationController {
 
         locationService.save(location);
 
-        return null;
+        return "index";
     }
+
+    @PostMapping("/delete")
+    public String delete(){
+        return "index";
+    }
+
 }

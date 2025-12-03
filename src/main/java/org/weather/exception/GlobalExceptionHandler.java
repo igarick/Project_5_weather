@@ -6,9 +6,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CookieValidationException.class)
+    @ExceptionHandler(SessionNotFoundException.class)
     public String handleSessionErrors() {
         return "redirect:/auth/sign-in";
+    }
+
+    @ExceptionHandler(DaoException.class)
+    public String handleDaoErrors() {
+        return "redirect:/error";
     }
 
 }

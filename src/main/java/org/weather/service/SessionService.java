@@ -4,9 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.weather.dto.SessionIdDto;
 import org.weather.dto.UserIdDto;
+import org.weather.exception.DaoException;
+import org.weather.exception.ErrorInfo;
 import org.weather.model.Session;
 import org.weather.model.User;
 import org.weather.repository.SessionRepository;
@@ -17,6 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class SessionService {
     private static final Logger log = LoggerFactory.getLogger(SessionService.class);
 
@@ -42,46 +46,13 @@ public class SessionService {
 
         log.warn("Сессия для данного пользователя истекла или ее нет");
         return Optional.empty();
-
-//        if (StringUtils.hasText(sessionIdParam)) {  //sessionIdParam != null || !sessionIdParam.isBlank()
-//            UUID sessionId = UUID.fromString(sessionIdParam);
-//            Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
-//            if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
-//                log.info("Получена действующая сессия для пользователя {}", sessionOptional.get().getUser().getLogin());
-//                return Optional.of(new SessionIdDto(sessionOptional.get().getId()));
-//            }
-//        }
-//        log.warn("Сессия для данного пользователя истекла или ее нет");
-//        return Optional.empty();
     }
-
-//    public SessionIdDto getSession(UserIdDto userId, String sessionIdParam) {
-//        log.info("Начат процесс получения/создания сессии для {}", userId.getId());
-//
-//        UUID sessionIdDto;
-//        if (sessionIdParam.isEmpty()) {
-//            Session session = createSession(userId);
-//            sessionIdDto = session.getId();
-//            log.info("Создана новая сессия для пользователя {}", session.getUser());
-//        } else {
-//            UUID sessionId = UUID.fromString(sessionIdParam);
-//            Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
-//            if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
-//                sessionIdDto = sessionOptional.get().getId();
-//                log.info("Получена действующая сессия для пользователя {}", sessionOptional.get().getUser());
-//            } else {
-//                Session session = createSession(userId);
-//                sessionIdDto = session.getId();
-//                log.info("Старая сессия отсутствует/истекала. Создана новая сессия для пользователя {}", session.getUser());
-//            }
-//        }
-//        return new SessionIdDto(sessionIdDto);
-//    }
 
     private boolean isExpired(Session session) {
         return session.getExpiresAt().isBefore(OffsetDateTime.now());
     }
 
+    @Transactional
     public SessionIdDto createSession(UserIdDto userId) {
         log.info("Начало создание сессии для пользователя {}", userId.getId());
         OffsetDateTime now = OffsetDateTime.now();
@@ -95,9 +66,14 @@ public class SessionService {
                 .build());
         session.setExpiresAt(dateTime);
 
-        sessionRepository.save(session);
+        try {
+            sessionRepository.save(session);
+        } catch (Exception e) {
+            log.error("Failed to save session");
+            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
+        }
 
-        log.info("Создана новая сессия для пользователя {}", session.getUser());
+        log.info("Session for user {} was successfully created", session.getUser());
         return new SessionIdDto(session.getId());
     }
 

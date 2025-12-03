@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.weather.dto.InputUserLoginDto;
 import org.weather.dto.InputUserRegistrationDto;
 import org.weather.dto.UserIdDto;
+import org.weather.exception.DaoException;
 import org.weather.exception.DuplicateUserException;
 import org.weather.exception.ErrorInfo;
 import org.weather.exception.InvalidUserOrPasswordException;
@@ -35,33 +36,37 @@ public class UserService {
     public void registerUser(InputUserRegistrationDto userDto) { //String login, String password
         String hashedPassword = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
 
+        User user = User.builder()
+                .login(userDto.getLogin())
+                .password(hashedPassword)
+                .build();
+
         try {
-            User user = User.builder()
-                    .login(userDto.getLogin())
-                    .password(hashedPassword)
-                    .build();
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
-            log.error("Ошибка при сохранении пользователя {} в базу данных. Такой логин уже существует", userDto.getLogin());
+            log.warn("Failed to save user {}. User already exists", userDto.getLogin());
             throw new DuplicateUserException(ErrorInfo.LOGIN_DUPLICATE_ERROR, e);
+        } catch (Exception e) {
+            log.warn("Failed to save user {}", userDto.getLogin());
+            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
         }
-        log.info("Пользователь {} сохранен в базе данных", userDto.getLogin());
+        log.info("User {} saved", userDto.getLogin());
     }
 
     public UserIdDto authenticateUser(InputUserLoginDto userDto) {
         Optional<User> optionalUser = userRepository.findByLogin((userDto.getLogin()));
         User user = optionalUser.orElseThrow(() -> {
-            log.error("Пользователь с логином {} не найден", userDto.getLogin());
+            log.warn("User {} not found", userDto.getLogin());
             return new InvalidUserOrPasswordException(ErrorInfo.USER_OR_PASSWORD_ERROR);
         });
 
         boolean passwordMatches = BCrypt.checkpw(userDto.getPassword(), user.getPassword());
         if (!passwordMatches) {
-            log.error("Неверный пароль для {}", userDto.getLogin());
+            log.warn("Invalid password for user {}", userDto.getLogin());
             throw new InvalidUserOrPasswordException(ErrorInfo.USER_OR_PASSWORD_ERROR);
         }
 
-        log.info("Пользователь {} успешно аутентифицирован", userDto.getLogin());
-       return new UserIdDto(user.getId());
+        log.info("User {} successfully authenticated", userDto.getLogin());
+        return new UserIdDto(user.getId());
     }
 }

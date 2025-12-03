@@ -19,9 +19,13 @@ public enum ErrorInfo {
     UNEXPECTED_API_ERROR("We're sorry, but an unexpected error has occurred. Please try again later", SC_INTERNAL_SERVER_ERROR),
     MAPPING_RESPONSE_API_ERROR("Mapping response API error"),
 
-    // validation
+    // session
     SESSION_NOT_FOUND("Session not found"),
     INVALID_SESSION("Invalid session"),
+
+    // dao
+    DATA_SAVE_ERROR("Data save error"),
+
 
 
 

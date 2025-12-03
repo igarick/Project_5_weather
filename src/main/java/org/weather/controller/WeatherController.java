@@ -12,24 +12,29 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/weather")
+@RequestMapping("/")
 public class WeatherController {
-    private final WeatherService weatherService;
-
-    @Autowired
-    public WeatherController(WeatherService weatherService) {
-        this.weatherService = weatherService;
-    }
 
     @GetMapping
-    public void getWeather() throws IOException, InterruptedException {
-        String city = "San Francisco";
-        LocationNameDto locationNameDto = new LocationNameDto(city);
-        List<LocationDto> location = weatherService.getLocationByCityName(locationNameDto);
-        System.out.println(location);
+    public String home() {
+return null;
+    }
+//    private final WeatherService weatherService;
+//
+//    @Autowired
+//    public WeatherController(WeatherService weatherService) {
+//        this.weatherService = weatherService;
+//    }
+//
+//    @GetMapping
+//    public void getWeather() throws IOException, InterruptedException {
+//        String city = "San Francisco";
+//        LocationNameDto locationNameDto = new LocationNameDto(city);
+//        List<LocationDto> location = weatherService.getLocationByCityName(locationNameDto);
+//        System.out.println(location);
 
 
 //        String weather = weatherService.getWeatherByCoordinates();
 //        System.out.println(weather);
-    }
+//    }
 }

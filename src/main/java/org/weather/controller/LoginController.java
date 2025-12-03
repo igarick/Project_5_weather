@@ -7,15 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.weather.dto.InputUserLoginDto;
 import org.weather.dto.SessionIdDto;
 import org.weather.dto.UserIdDto;
-import org.weather.exception.CookieValidationException;
+import org.weather.exception.SessionNotFoundException;
 import org.weather.exception.InvalidUserOrPasswordException;
-import org.weather.model.Session;
 import org.weather.service.SessionService;
 import org.weather.service.UserService;
 import org.weather.validator.CookieParamValidatorAndHandler;
@@ -70,7 +68,7 @@ public class LoginController {
         UUID sessionIdFromCookies = null;
         try {
             sessionIdFromCookies = validatorAndHandler.extractSessionId(sessionIdParam);
-        } catch (CookieValidationException e) {
+        } catch (SessionNotFoundException e) {
             log.warn("Invalid sessionId cookie {}", sessionIdFromCookies);
             sessionIdFromCookies = null;
         }
@@ -90,8 +88,7 @@ public class LoginController {
             currentSessionIdDto = sessionService.createSession(userId);
         } else {
             Optional<SessionIdDto> currentOptional = sessionService.findCurrentSession(new SessionIdDto(sessionIdFromCookies));
-            UserIdDto finalUserId = userId;
-            currentSessionIdDto = currentOptional.orElseGet(() -> sessionService.createSession(finalUserId));
+            currentSessionIdDto = currentOptional.orElseGet(() -> sessionService.createSession(userId));
 
 
 //            if (currentSessionOptional.isEmpty()) {
