@@ -54,10 +54,13 @@
                             <p class="card-text mb-1">Country: <span th:text="${location.getCountry()}">N/A</span></p>
                             <p class="card-text mb-3">State: <span th:text="${location.getState()}">N/A</span></p>
                             <div class="mt-auto">
-                                <form th:action="@{/location/add}" method="post">
-                                    <input type="hidden" name="locationName" th:value="${location.getName()}">
-                                    <input type="hidden" name="latitude" th:value="${location.getLatitude()}">
-                                    <input type="hidden" name="longitude" th:value="${location.getLongitude()}">
+                                <form th:action="@{/location/add}" th:object="${locationToSaveDto}" method="post">
+                                    <input type="hidden" th:field="*{locationName}" th:value="${location.name}">
+                                    <input type="hidden" th:field="*{latitude}" th:value="${location.latitude}">
+                                    <input type="hidden" th:field="*{longitude}" th:value="${location.longitude}">
+<!--                                    <input type="hidden" name="locationName" th:value="${location.getName()}">-->
+<!--                                    <input type="hidden" name="latitude" th:value="${location.getLatitude()}">-->
+<!--                                    <input type="hidden" name="longitude" th:value="${location.getLongitude()}">-->
                                 <button class="btn btn-primary w-100" type="submit">Add</button>
                                 </form>
                             </div>

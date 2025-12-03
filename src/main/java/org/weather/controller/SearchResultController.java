@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.weather.dto.LocationNameDto;
 import org.weather.dto.LocationDto;
+import org.weather.dto.LocationToSaveDto;
 import org.weather.dto.SessionIdDto;
 import org.weather.service.SessionService;
 import org.weather.service.WeatherService;
@@ -70,6 +71,8 @@ public class SearchResultController {
         List<LocationDto> locations = weatherService.getLocationByCityName(locationNameDto);
 
         model.addAttribute("locations", locations);
+        //проба
+        model.addAttribute("locationToSaveDto", new LocationToSaveDto());
 
         ResponseCookie sessionId = ResponseCookie.from("sessionId", sessionIdStr)
                 .httpOnly(true)
