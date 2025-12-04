@@ -30,9 +30,13 @@ public class WeatherCardsService {
     }
 
     private WeatherDto buildWeatherDto(LocationSavedDto locationSavedDto) {
-        return weatherService.getWeatherByCoordinates(
+        WeatherDto weatherByCoordinates = weatherService.getWeatherByCoordinates(
                 locationSavedDto.getLatitude().toString(),
                 locationSavedDto.getLongitude().toString()
         );
+
+        weatherByCoordinates.setCity(locationSavedDto.getLocationName());
+
+        return weatherByCoordinates;
     }
 }

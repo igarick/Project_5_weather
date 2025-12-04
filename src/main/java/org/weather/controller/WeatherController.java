@@ -20,17 +20,12 @@ import java.util.List;
 @RequestMapping("/")
 public class WeatherController {
     private final CookieParamValidatorAndHandler validatorAndHandler;
-    private final LocationService locationService;
-    private final WeatherService weatherService;
     private final WeatherCardsService weatherCardsService;
 
     @Autowired
     public WeatherController(CookieParamValidatorAndHandler validatorAndHandler,
-                             LocationService locationService,
-                             WeatherService weatherService, WeatherCardsService weatherCardsService) {
+                             WeatherCardsService weatherCardsService) {
         this.validatorAndHandler = validatorAndHandler;
-        this.locationService = locationService;
-        this.weatherService = weatherService;
         this.weatherCardsService = weatherCardsService;
     }
 

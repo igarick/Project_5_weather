@@ -53,11 +53,12 @@
                     <div class="card h-100 position-relative weather-card">
                         <div class="position-absolute weather-card-delete-form">
                             <form th:action="@{/location/delete}" method="post">
-                                <input type="hidden" name="latitude" th:value="${}">
+<!--                                <input type="hidden" name="latitude" th:value="${}">-->
                             <button class="btn-close" aria-label="Delete"></button>
                             </form>
                         </div>
                         <img class="card-img-top img-fluid"
+                             th:src="@{'https://openweathermap.org/img/wn/' + ${card.weatherInfo.first.icon} + '@4x.png'}"
                              src="https://openweathermap.org/img/wn/01n@4x.png"
                              alt="Weather icon">
                         <div class="card-body d-flex flex-column">
