@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.weather.dto.LocationSavedDto;
 import org.weather.dto.LocationToSaveDto;
+import org.weather.dto.SessionIdDto;
 import org.weather.exception.DaoException;
 import org.weather.exception.ErrorInfo;
 import org.weather.exception.SessionNotFoundException;
@@ -15,6 +17,7 @@ import org.weather.model.User;
 import org.weather.repository.LocationRepository;
 import org.weather.repository.SessionRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,16 +37,16 @@ public class LocationService {
     }
 
     @Transactional
-    public void save(LocationToSaveDto locationDto) {
+    public void saveLocation(LocationToSaveDto locationDto) {
         log.info("Start saving location");
         Optional<Session> sessionOptional = sessionRepository.findById(locationDto.getSessionId());
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
-        Long id = session.getUser().getId();
+        Long userId = session.getUser().getId();
 
         Location location = Location.builder()
                 .name(locationDto.getLocationName())
                 .user(User.builder()
-                        .id(id)
+                        .id(userId)
                         .build())
                 .latitude(locationDto.getLatitude())
                 .longitude(locationDto.getLongitude())
@@ -56,4 +59,30 @@ public class LocationService {
         }
         log.info("Location saved");
     }
+
+    public List<LocationSavedDto> findAllBySession(SessionIdDto sessionIdDto) {
+        Optional<Session> sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
+        Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
+        Long userId = session.getUser().getId();
+        log.info("User {} received from session", userId);
+
+        List<Location> locations = locationRepository.findAllByUser_Id(userId);
+
+        List<LocationSavedDto> locationSavedDtos = locations.stream()
+                .map(location -> buildLocationSavedDto(location))
+                .toList();
+
+        log.info("Received list of locations for user {}", userId);
+        return locationSavedDtos;
+    }
+
+    private LocationSavedDto buildLocationSavedDto(Location location) {
+        log.info("Build Location name={}, lat={}, lon={}", location.getName(), location.getLatitude(), location.getLongitude());
+        return LocationSavedDto.builder()
+                .locationName(location.getName())
+                .latitude(location.getLatitude())
+                .longitude(location.getLongitude())
+                .build();
+    }
+
 }

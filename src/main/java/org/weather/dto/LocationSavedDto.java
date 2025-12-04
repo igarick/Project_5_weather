@@ -1,0 +1,17 @@
+package org.weather.dto;
+
+import lombok.*;
+
+import java.math.BigDecimal;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
+@ToString
+public class LocationSavedDto {
+    private String locationName;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
+}

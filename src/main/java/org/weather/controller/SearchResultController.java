@@ -50,20 +50,20 @@ public class SearchResultController {
         }
 
         SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdParam);
-        String sessionIdStr = String.valueOf(currentSessionIdDto.getSessionId());
+//        String sessionIdStr = String.valueOf(currentSessionIdDto.getSessionId());
 
         LocationNameDto locationNameDto = new LocationNameDto(locationNameParam);
         List<LocationDto> locations = weatherService.getLocationByCityName(locationNameDto);
 
         model.addAttribute("locations", locations);
 
-        ResponseCookie sessionId = ResponseCookie.from("sessionId", sessionIdStr)
-                .httpOnly(true)
-                .path("/")
-                .maxAge(60 * 1)
-                .build();
-
-        response.addHeader("Set-Cookie", sessionId.toString());
+//        ResponseCookie sessionId = ResponseCookie.from("sessionId", sessionIdStr)
+//                .httpOnly(true)
+//                .path("/")
+//                .maxAge(60 * 1)
+//                .build();
+//
+//        response.addHeader("Set-Cookie", sessionId.toString());
         return "search-results";
     }
 }

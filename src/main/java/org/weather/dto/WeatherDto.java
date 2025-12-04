@@ -17,6 +17,10 @@ public class WeatherDto {
     private List<WeatherInfoDto> weatherInfo;
     @JsonProperty("main")
     private WeatherBasePramsDto weatherBasePrams;
+    @JsonProperty("name")
+    private String city;
+    @JsonProperty("sys")
+    private CountryDto country;
 
 
     //      брать из погоды

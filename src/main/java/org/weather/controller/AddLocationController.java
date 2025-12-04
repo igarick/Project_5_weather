@@ -1,12 +1,9 @@
 package org.weather.controller;
 
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.weather.dto.LocationToSaveDto;
 import org.weather.service.LocationService;
@@ -52,9 +49,9 @@ public class AddLocationController {
                 .longitude(new BigDecimal(longitudeParam))
                 .build();
 
-        locationService.save(location);
+        locationService.saveLocation(location);
 
-        return "index";
+        return "redirect:/";
     }
 
     @PostMapping("/delete")
