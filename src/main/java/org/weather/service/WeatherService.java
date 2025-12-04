@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.weather.dto.LocationNameDto;
 import org.weather.dto.LocationDto;
+import org.weather.dto.SessionIdDto;
 import org.weather.dto.WeatherDto;
 import org.weather.exception.*;
 
