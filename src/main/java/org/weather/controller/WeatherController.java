@@ -32,17 +32,10 @@ public class WeatherController {
     @GetMapping
     public String home(@CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                        Model model) {
-
         SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdParam);
-
         List<WeatherViewDto> weatherCards = weatherCardsService.getWeatherCards(currentSessionIdDto);
 
-        for (WeatherViewDto weatherCard : weatherCards) {
-            log.info(weatherCard.toString());
-        }
-
         model.addAttribute("cards", weatherCards);
-
         return "index";
     }
 }

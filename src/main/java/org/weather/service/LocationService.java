@@ -76,7 +76,7 @@ public class LocationService {
     }
 
     private LocationSavedDto buildLocationSavedDto(Location location) {
-        log.info("Build Location {}", location);
+        log.info("Build location {}", location.getName());
         return LocationSavedDto.builder()
                 .city(location.getName())
                 .latitude(location.getLatitude())
