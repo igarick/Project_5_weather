@@ -59,7 +59,7 @@ public class LocationService {
     }
 
     public List<LocationSavedDto> findAllBySession(SessionIdDto sessionIdDto) {
-        log.info("Start getting locations by sessionId {}", sessionIdDto);
+        log.info("Start getting locations by sessionId {}", sessionIdDto.getSessionId());
         Optional<Session> sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
         Long userId = session.getUser().getId();

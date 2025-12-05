@@ -11,7 +11,7 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="img/weather-app.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            <img th:src="@{/resources/img/weather-app.png}" alt="" width="30" height="24" class="d-inline-block align-text-top">
             Weather Tracker
         </a>
         <div class="d-flex align-items-center">
@@ -35,14 +35,6 @@
                     </div>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
-<!--                <div class="input-group location-search-input-group me-3">-->
-<!--                    <input class="form-control" type="text" name="locationName" placeholder="Enter location" required>-->
-<!--                    <button class="btn btn-outline-secondary btn-sm clear-input-button" type="button"-->
-<!--                            onclick="this.previousElementSibling.value=''">-->
-<!--                        &times;-->
-<!--                    </button>-->
-<!--                    <button class="btn btn-outline-success" type="submit">Search</button>-->
-<!--                </div>-->
             </form>
         </div>
 

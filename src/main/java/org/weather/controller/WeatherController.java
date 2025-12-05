@@ -14,6 +14,7 @@ import org.weather.service.WeatherCardsService;
 import org.weather.validator.CookieParamValidatorAndHandler;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -32,7 +33,11 @@ public class WeatherController {
     @GetMapping
     public String home(@CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                        Model model) {
-        SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdParam);
+
+        UUID sessionId = validatorAndHandler.extractSessionId(sessionIdParam);
+        SessionIdDto sessionIdDto = new SessionIdDto(sessionId);
+        SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdDto);
+
         List<WeatherViewDto> weatherCards = weatherCardsService.getWeatherCards(currentSessionIdDto);
 
         model.addAttribute("cards", weatherCards);

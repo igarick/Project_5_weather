@@ -39,7 +39,7 @@ public class LoginController {
 
     @GetMapping()
     public String showSignUpForm(@ModelAttribute("userDto") InputUserLoginDto userDto) {
-        log.info("Enter the get mapping");
+        log.info("Go to the login page");
         return "auth/sign-in";
     }
 
@@ -91,6 +91,6 @@ public class LoginController {
 
         response.addHeader("Set-Cookie", sessionIdCookie.toString());
 
-        return "redirect:/search-results";
+        return "redirect:/";
     }
 }
