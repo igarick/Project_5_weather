@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.weather.dto.LocationSavedDto;
 import org.weather.dto.SessionIdDto;
-import org.weather.dto.WeatherDto;
+import org.weather.dto.weather.WeatherDto;
+import org.weather.dto.weather.WeatherViewDto;
 
 import java.util.List;
 
@@ -21,11 +22,12 @@ public class WeatherCardsService {
         this.weatherService = weatherService;
     }
 
-    public List<WeatherDto> getWeatherCards(SessionIdDto sessionIdDto) {
+    public List<WeatherViewDto> getWeatherCards(SessionIdDto sessionIdDto) {
         List<LocationSavedDto> locations = locationService.findAllBySession(sessionIdDto);
 
         return locations.stream()
                 .map(this::buildWeatherDto)
+                .map(this::mapTo)
                 .toList();
     }
 
@@ -34,9 +36,19 @@ public class WeatherCardsService {
                 locationSavedDto.getLatitude().toString(),
                 locationSavedDto.getLongitude().toString()
         );
-
-        weatherByCoordinates.setCity(locationSavedDto.getLocationName());
-
+        weatherByCoordinates.setCity(locationSavedDto.getCity());
         return weatherByCoordinates;
+    }
+
+    private WeatherViewDto mapTo(WeatherDto weatherDto) {
+        return WeatherViewDto.builder()
+                .country(weatherDto.getCountry().getCountry())
+                .city(weatherDto.getCity())
+                .temperature(weatherDto.getWeatherBasePrams().getTemperature())
+                .feelsLike(weatherDto.getWeatherBasePrams().getFeelsLike())
+                .humidity(weatherDto.getWeatherBasePrams().getHumidity())
+                .description(weatherDto.getWeatherInfo().getFirst().getDescription())
+                .icon(weatherDto.getWeatherInfo().getFirst().getIcon())
+                .build();
     }
 }

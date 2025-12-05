@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @ToString
 public class LocationSavedDto {
-    private String locationName;
+    private String city;
     private BigDecimal latitude;
     private BigDecimal longitude;
 }

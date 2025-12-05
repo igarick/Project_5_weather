@@ -1,6 +1,7 @@
-package org.weather.dto;
+package org.weather.dto.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,7 +10,7 @@ import lombok.*;
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherInfoDto {
-    private String description;
-    private String icon;
+public class CountryDto {
+    @JsonProperty("country")
+    private String country;
 }

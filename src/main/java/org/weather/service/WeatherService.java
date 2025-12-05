@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.weather.dto.LocationNameDto;
 import org.weather.dto.LocationDto;
-import org.weather.dto.SessionIdDto;
-import org.weather.dto.WeatherDto;
+import org.weather.dto.weather.WeatherDto;
 import org.weather.exception.*;
 
 import java.io.IOException;
@@ -56,7 +55,7 @@ public class WeatherService {
 
     public WeatherDto getWeatherByCoordinates(String latitude, String longitude) {
         log.info("Формирование запроса для получения погоды по координатам lat = {} lon = {} к API", latitude, longitude);
-        String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=810674edcfe03956f3d710e75080d5c8", latitude, longitude);
+        String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric&appid=810674edcfe03956f3d710e75080d5c8", latitude, longitude);
         String body = getWeatherApiResponse(url);
 
         WeatherDto weatherDto = null;

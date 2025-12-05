@@ -1,13 +1,11 @@
 package org.weather;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import org.weather.dto.LocationDto;
-import org.weather.dto.WeatherDto;
+import org.weather.dto.weather.WeatherDto;
 import org.weather.service.WeatherService;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
-import java.util.List;
 
 public class main {
     public static void main(String[] args) throws IOException, InterruptedException {

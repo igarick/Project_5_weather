@@ -1,21 +1,21 @@
 package org.weather.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.weather.dto.LocationSavedDto;
 import org.weather.dto.SessionIdDto;
-import org.weather.dto.WeatherDto;
-import org.weather.service.LocationService;
+import org.weather.dto.weather.WeatherDto;
+import org.weather.dto.weather.WeatherViewDto;
 import org.weather.service.WeatherCardsService;
-import org.weather.service.WeatherService;
 import org.weather.validator.CookieParamValidatorAndHandler;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/")
 public class WeatherController {
@@ -35,7 +35,11 @@ public class WeatherController {
 
         SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdParam);
 
-        List<WeatherDto> weatherCards = weatherCardsService.getWeatherCards(currentSessionIdDto);
+        List<WeatherViewDto> weatherCards = weatherCardsService.getWeatherCards(currentSessionIdDto);
+
+        for (WeatherViewDto weatherCard : weatherCards) {
+            log.info(weatherCard.toString());
+        }
 
         model.addAttribute("cards", weatherCards);
 
