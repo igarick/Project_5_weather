@@ -41,13 +41,16 @@ public class WeatherCardsService {
     }
 
     private WeatherViewDto mapTo(WeatherDto weatherDto) {
+        String description = weatherDto.getWeatherInfo().getFirst().getDescription();
+        String capitalized = description.substring(0, 1).toUpperCase() + description.substring(1);
+
         return WeatherViewDto.builder()
                 .country(weatherDto.getCountry().getCountry())
                 .city(weatherDto.getCity())
-                .temperature(weatherDto.getWeatherBasePrams().getTemperature())
-                .feelsLike(weatherDto.getWeatherBasePrams().getFeelsLike())
+                .temperature((int) Math.round(weatherDto.getWeatherBasePrams().getTemperature()))
+                .feelsLike((int) Math.round(weatherDto.getWeatherBasePrams().getFeelsLike()))
                 .humidity(weatherDto.getWeatherBasePrams().getHumidity())
-                .description(weatherDto.getWeatherInfo().getFirst().getDescription())
+                .description(capitalized)
                 .icon(weatherDto.getWeatherInfo().getFirst().getIcon())
                 .build();
     }

@@ -73,7 +73,7 @@ public class SessionService {
             throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
         }
 
-        log.info("Session for user {} was successfully created", session.getUser());
+        log.info("Session for user {} was successfully created", session.getUser().getId());
         return new SessionIdDto(session.getId());
     }
 

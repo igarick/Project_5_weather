@@ -22,11 +22,11 @@ public class LocationDto {
     @JsonProperty("country")
     String country;
     @JsonProperty("state")
-    String state;
+    String state = "none";
 
 
     // вместо null при десериализации в дто
-//    String state = "none";
+    //    String state = "none";
 
 
 }

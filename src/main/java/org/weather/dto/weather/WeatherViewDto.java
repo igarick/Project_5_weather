@@ -12,8 +12,8 @@ import lombok.*;
 public class WeatherViewDto {
     private String country;
     private String city;
-    private double temperature;
-    private double feelsLike;
+    private int temperature;
+    private int feelsLike;
     private int humidity;
     private String description;
     private String icon;

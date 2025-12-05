@@ -21,13 +21,4 @@ public class WeatherDto {
     private String city;
     @JsonProperty("sys")
     private CountryDto country;
-
-
-    //      брать из погоды
-//            [
-//    {
-//             "name":"Innere Stadt",
-//            "country":"AT"
-//    },
-//            [
 }

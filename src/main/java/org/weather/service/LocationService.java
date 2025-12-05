@@ -36,7 +36,7 @@ public class LocationService {
 
     @Transactional
     public void saveLocation(LocationToSaveDto locationDto) {
-        log.info("Start saving location {}", locationDto);
+        log.info("Start saving location {}", locationDto.getLocationName());
         Optional<Session> sessionOptional = sessionRepository.findById(locationDto.getSessionId());
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
         Long userId = session.getUser().getId();
@@ -55,7 +55,7 @@ public class LocationService {
             log.error("Failed to save location {}", locationDto);
             throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
         }
-        log.info("Location {} saved", locationDto);
+        log.info("Location {} saved", locationDto.getLocationName());
     }
 
     public List<LocationSavedDto> findAllBySession(SessionIdDto sessionIdDto) {
