@@ -16,4 +16,9 @@ public class GlobalExceptionHandler {
         return "redirect:/error";
     }
 
+    @ExceptionHandler(MappingException.class)
+    public String handleMappingErrors() {
+        return "redirect:/error";
+    }
+
 }

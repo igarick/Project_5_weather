@@ -17,7 +17,7 @@ public enum ErrorInfo {
     REQUEST_API_ERROR("Bad request", SC_NOT_FOUND),
     FREQUENT_REQUEST_API_ERROR("Don't make more than 60 API calls per minute", 429),
     UNEXPECTED_API_ERROR("We're sorry, but an unexpected error has occurred. Please try again later", SC_INTERNAL_SERVER_ERROR),
-    MAPPING_RESPONSE_API_ERROR("Mapping response API error"),
+    MAPPING_RESPONSE_API_ERROR("Mapping response API error", SC_INTERNAL_SERVER_ERROR),
 
     // session
     SESSION_NOT_FOUND("Session not found"),
@@ -25,6 +25,7 @@ public enum ErrorInfo {
 
     // dao
     DATA_SAVE_ERROR("Data save error"),
+
 
 
 
