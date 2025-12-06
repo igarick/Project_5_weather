@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.weather.dto.LocationSavedDto;
+import org.weather.dto.LocationToDeleteDto;
 import org.weather.dto.LocationToSaveDto;
 import org.weather.dto.SessionIdDto;
 import org.weather.exception.DaoException;
@@ -73,6 +74,30 @@ public class LocationService {
 
         log.info("Received list of locations for userId {}", userId);
         return locationSavedDtos;
+    }
+
+    @Transactional
+    public void deleteLocation(LocationToDeleteDto location) {
+        log.info("Start deleting location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
+        Optional<Session> sessionOptional = sessionRepository.findById(location.getSessionId());
+        Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
+        Long userId = session.getUser().getId();
+        log.info("UserId {} received from session", userId);
+
+//        locationRepository.deleteLocationByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+
+//        locationRepository.deleteByUserAndLatitudeAndLongitude(
+//                User.builder()
+//                        .id(userId)
+//                        .build(),
+//                location.getLatitude(),
+//                location.getLongitude()
+//        );
+
+        locationRepository.deleteByUser_IdAndLatitudeAndLongitude(userId, location.getLatitude(), location.getLongitude());
+
+        log.info("==================== Location lat = {}, lon = {} was deleted", location.getLatitude(), location.getLongitude());
+
     }
 
     private LocationSavedDto buildLocationSavedDto(Location location) {
