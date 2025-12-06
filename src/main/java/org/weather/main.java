@@ -5,6 +5,7 @@ import org.weather.dto.weather.WeatherDto;
 import org.weather.service.WeatherService;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.http.HttpClient;
 
 public class main {
@@ -25,8 +26,11 @@ public class main {
 
 //        System.out.println("");
 //
-        String lat = "37.7749";
-        String lon = "-122.4194";
+        BigDecimal lat = new BigDecimal("37.7749");
+        BigDecimal lon = new BigDecimal("-122.4194");
+
+//        String lat = "37.7749";
+//        String lon = "-122.4194";
 
         WeatherDto weatherByCoordinates = weatherService.getWeatherByCoordinates(lat, lon);
 //        String weatherByCoordinates = weatherService.getWeatherByCoordinates(lat, lon);

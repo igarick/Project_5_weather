@@ -25,11 +25,12 @@ public class WeatherMapper {
                     .humidity(weatherDto.getWeatherBasePrams().getHumidity())
                     .description(capitalized)
                     .icon(weatherDto.getWeatherInfo().getFirst().getIcon())
+                    .latitude(weatherDto.getLatitude())
+                    .longitude(weatherDto.getLongitude())
                     .build();
         } catch (Exception e) {
             throw new MappingException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
         }
-
     }
 
     private int round(double value) {

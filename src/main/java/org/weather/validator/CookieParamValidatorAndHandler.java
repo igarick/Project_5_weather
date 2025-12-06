@@ -24,16 +24,6 @@ public class CookieParamValidatorAndHandler {
         this.sessionService = sessionService;
     }
 
-//    public SessionIdDto getCurrentSession(String sessionIdParam) {
-//        UUID sessionId = extractSessionId(sessionIdParam);
-//        Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(new SessionIdDto(sessionId));
-//        if (currentSession.isEmpty()) {
-//            throw new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND);
-//        }
-//        return currentSession.get();
-//    }
-
-
     public void validateSessionExists(UUID sessionId) {
         Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(new SessionIdDto(sessionId));
         if (currentSession.isEmpty()) {
@@ -46,8 +36,6 @@ public class CookieParamValidatorAndHandler {
         Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(sessionIdDto);
         return currentSession.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
     }
-
-
 
     public UUID extractSessionId(String sessionIdParam) {
         if (!StringUtils.hasText(sessionIdParam)) {

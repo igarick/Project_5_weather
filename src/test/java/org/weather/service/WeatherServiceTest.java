@@ -70,7 +70,7 @@ public class WeatherServiceTest {
         when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
         assertThrows(UnexpectedWeatherApiException.class,
-                () -> weatherService.getWeatherByCoordinates("16.3721", "48.2085"));
+                () -> weatherService.getWeatherByCoordinates(new BigDecimal("16.3721"), new BigDecimal("48.2085")));
 
     }
 }

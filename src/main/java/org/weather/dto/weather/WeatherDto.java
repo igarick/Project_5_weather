@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,4 +22,7 @@ public class WeatherDto {
     private String city;
     @JsonProperty("sys")
     private CountryDto country;
+
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 }

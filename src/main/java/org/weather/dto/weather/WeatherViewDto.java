@@ -3,6 +3,8 @@ package org.weather.dto.weather;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,4 +19,7 @@ public class WeatherViewDto {
     private int humidity;
     private String description;
     private String icon;
+
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 }

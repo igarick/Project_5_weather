@@ -13,6 +13,7 @@ import org.weather.dto.weather.WeatherDto;
 import org.weather.exception.*;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -53,7 +54,7 @@ public class WeatherService {
         return locations;
     }
 
-    public WeatherDto getWeatherByCoordinates(String latitude, String longitude) {
+    public WeatherDto getWeatherByCoordinates(BigDecimal latitude, BigDecimal longitude) {          //String latitude, String longitude
         log.info("Формирование запроса для получения погоды по координатам lat = {} lon = {} к API", latitude, longitude);
         String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric&appid=810674edcfe03956f3d710e75080d5c8", latitude, longitude);
         String body = getWeatherApiResponse(url);

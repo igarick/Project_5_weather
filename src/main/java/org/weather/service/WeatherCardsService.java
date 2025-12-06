@@ -1,5 +1,6 @@
 package org.weather.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.weather.utils.WeatherMapper;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class WeatherCardsService {
@@ -36,25 +38,13 @@ public class WeatherCardsService {
 
     private WeatherDto getWeather(LocationSavedDto locationSavedDto) {
         WeatherDto weatherByCoordinates = weatherService.getWeatherByCoordinates(
-                locationSavedDto.getLatitude().toString(),
-                locationSavedDto.getLongitude().toString()
+                locationSavedDto.getLatitude(),
+                locationSavedDto.getLongitude()
         );
         weatherByCoordinates.setCity(locationSavedDto.getCity());
+        weatherByCoordinates.setLatitude(locationSavedDto.getLatitude());
+        weatherByCoordinates.setLongitude(locationSavedDto.getLongitude());
+        log.info("Weather by coordinates city = {}, lat = {}, lon = {} mapped", weatherByCoordinates.getCity(), weatherByCoordinates.getLatitude(), weatherByCoordinates.getLongitude());
         return weatherByCoordinates;
     }
-
-//    private WeatherViewDto mapTo(WeatherDto weatherDto) {
-//        String description = weatherDto.getWeatherInfo().getFirst().getDescription();
-//        String capitalized = description.substring(0, 1).toUpperCase() + description.substring(1);
-//
-//        return WeatherViewDto.builder()
-//                .country(weatherDto.getCountry().getCountry())
-//                .city(weatherDto.getCity())
-//                .temperature((int) Math.round(weatherDto.getWeatherBasePrams().getTemperature()))
-//                .feelsLike((int) Math.round(weatherDto.getWeatherBasePrams().getFeelsLike()))
-//                .humidity(weatherDto.getWeatherBasePrams().getHumidity())
-//                .description(capitalized)
-//                .icon(weatherDto.getWeatherInfo().getFirst().getIcon())
-//                .build();
-//    }
 }

@@ -54,9 +54,11 @@ public class AddLocationController {
         return "redirect:/";
     }
 
-    @PostMapping("/delete")
-    public String delete() {
-        return "index";
-    }
+//    @PostMapping("/delete")
+//    public String delete(@CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
+//                         @RequestParam("")) {
+//
+//        return "index";
+//    }
 
 }
