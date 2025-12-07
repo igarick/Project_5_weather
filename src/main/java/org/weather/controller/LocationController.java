@@ -8,7 +8,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.weather.dto.LocationToDeleteDto;
 import org.weather.dto.LocationToSaveDto;
-import org.weather.dto.SessionIdDto;
 import org.weather.service.LocationService;
 import org.weather.validator.CookieParamValidatorAndHandler;
 
@@ -17,14 +16,14 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/location")
-public class AddLocationController {
-    private final Logger log = LoggerFactory.getLogger(AddLocationController.class);
+public class LocationController {
+    private final Logger log = LoggerFactory.getLogger(LocationController.class);
 
     private final CookieParamValidatorAndHandler validatorAndHandler;
     private final LocationService locationService;
 
     @Autowired
-    public AddLocationController(CookieParamValidatorAndHandler validatorAndHandler, LocationService locationService) {
+    public LocationController(CookieParamValidatorAndHandler validatorAndHandler, LocationService locationService) {
         this.validatorAndHandler = validatorAndHandler;
         this.locationService = locationService;
     }

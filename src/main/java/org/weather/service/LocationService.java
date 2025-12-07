@@ -1,5 +1,6 @@
 package org.weather.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,12 @@ import org.weather.repository.SessionRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class LocationService {
-    private final Logger log = LoggerFactory.getLogger(LocationService.class);
-
     private final LocationRepository locationRepository;
     private final SessionRepository sessionRepository;
 
@@ -60,44 +61,42 @@ public class LocationService {
     }
 
     public List<LocationSavedDto> findAllBySession(SessionIdDto sessionIdDto) {
-        log.info("Start getting locations by sessionId {}", sessionIdDto.getSessionId());
-        Optional<Session> sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
-        Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
-        Long userId = session.getUser().getId();
-        log.info("UserId {} received from session", userId);
+        log.info("Getting locations for sessionId {}", sessionIdDto.getSessionId());
+        Long userId = getUserIdBySession(sessionIdDto.getSessionId());
 
-        List<Location> locations = locationRepository.findAllByUser_Id(userId);
+        List<Location> locations = null;
+        try {
+            locations = locationRepository.findAllByUser_Id(userId);
+        } catch (Exception e) {
+            log.error("Failed to fetch locations");
+            throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
+        }
 
         List<LocationSavedDto> locationSavedDtos = locations.stream()
                 .map(this::buildLocationSavedDto)
                 .toList();
 
-        log.info("Received list of locations for userId {}", userId);
+        log.info("Found {} locations for userId {}", locations.size(), userId);
         return locationSavedDtos;
     }
 
     @Transactional
     public void deleteLocation(LocationToDeleteDto location) {
-        log.info("Start deleting location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
-        Optional<Session> sessionOptional = sessionRepository.findById(location.getSessionId());
+        log.info("Deleting location for sessionId {}", location.getSessionId());
+        Long userId = getUserIdBySession(location.getSessionId());
+
+        try {
+            locationRepository.deleteByUser_IdAndLatitudeAndLongitude(userId, location.getLatitude(), location.getLongitude());
+        } catch (Exception e) {
+            throw new DaoException(ErrorInfo.DATA_DELETE_ERROR, e);
+        }
+        log.info("Deleted location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
+    }
+
+    private Long getUserIdBySession(UUID sessionId) {
+        Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
-        Long userId = session.getUser().getId();
-        log.info("UserId {} received from session", userId);
-
-//        locationRepository.deleteLocationByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
-
-//        locationRepository.deleteByUserAndLatitudeAndLongitude(
-//                User.builder()
-//                        .id(userId)
-//                        .build(),
-//                location.getLatitude(),
-//                location.getLongitude()
-//        );
-
-        locationRepository.deleteByUser_IdAndLatitudeAndLongitude(userId, location.getLatitude(), location.getLongitude());
-
-        log.info("==================== Location lat = {}, lon = {} was deleted", location.getLatitude(), location.getLongitude());
-
+        return session.getUser().getId();
     }
 
     private LocationSavedDto buildLocationSavedDto(Location location) {
@@ -108,5 +107,4 @@ public class LocationService {
                 .longitude(location.getLongitude())
                 .build();
     }
-
 }

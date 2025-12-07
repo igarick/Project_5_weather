@@ -24,7 +24,9 @@ public enum ErrorInfo {
     INVALID_SESSION("Invalid session"),
 
     // dao
-    DATA_SAVE_ERROR("Data save error"),
+    DATA_SAVE_ERROR("Data save error", SC_INTERNAL_SERVER_ERROR),
+    DATA_FETCH_ERROR("Data fetch error", SC_INTERNAL_SERVER_ERROR),
+    DATA_DELETE_ERROR("Data delete error", SC_INTERNAL_SERVER_ERROR),
 
 
 
