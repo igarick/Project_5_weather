@@ -76,22 +76,4 @@ public class SessionService {
         log.info("Session for user {} was successfully created", session.getUser().getId());
         return new SessionIdDto(session.getId());
     }
-
-//    private Session createSession(UserIdDto userId) {
-//        OffsetDateTime now = OffsetDateTime.now();
-//        OffsetDateTime dateTime = now.plusSeconds(sessionProperty.getSessionTimeout());
-//
-//        Session session = new Session();
-//        UUID uuid = UUID.randomUUID();
-//        session.setId(uuid);
-//        session.setUser(User.builder()
-//                .id(userId.getId())
-//                .build());
-//        session.setExpiresAt(dateTime);
-//
-//        sessionRepository.save(session);
-//
-//        return session;
-//    }
-
 }

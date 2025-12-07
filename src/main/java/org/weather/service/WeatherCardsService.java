@@ -28,7 +28,7 @@ public class WeatherCardsService {
     }
 
     public List<WeatherViewDto> getWeatherCards(SessionIdDto sessionIdDto) {
-        List<LocationSavedDto> locations = locationService.findAllBySession(sessionIdDto);
+        List<LocationSavedDto> locations = locationService.findAllBySessionId(sessionIdDto);
 
         return locations.stream()
                 .map(this::getWeather)

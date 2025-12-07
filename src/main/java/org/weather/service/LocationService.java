@@ -1,8 +1,6 @@
 package org.weather.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,13 +52,13 @@ public class LocationService {
         try {
             locationRepository.save(location);
         } catch (Exception e) {
-            log.error("Failed to save location {}", locationDto);
+//            log.error("Failed to save location name = {}", locationDto.getLocationName());
             throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
         }
         log.info("Location {} saved", locationDto.getLocationName());
     }
 
-    public List<LocationSavedDto> findAllBySession(SessionIdDto sessionIdDto) {
+    public List<LocationSavedDto> findAllBySessionId(SessionIdDto sessionIdDto) {
         log.info("Getting locations for sessionId {}", sessionIdDto.getSessionId());
         Long userId = getUserIdBySession(sessionIdDto.getSessionId());
 
@@ -68,12 +66,12 @@ public class LocationService {
         try {
             locations = locationRepository.findAllByUser_Id(userId);
         } catch (Exception e) {
-            log.error("Failed to fetch locations");
+//            log.error("Failed to fetch locations");
             throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
         }
 
         List<LocationSavedDto> locationSavedDtos = locations.stream()
-                .map(this::buildLocationSavedDto)
+                .map(this::mapToLocationSavedDto)
                 .toList();
 
         log.info("Found {} locations for userId {}", locations.size(), userId);
@@ -90,7 +88,7 @@ public class LocationService {
         } catch (Exception e) {
             throw new DaoException(ErrorInfo.DATA_DELETE_ERROR, e);
         }
-        log.info("Deleted location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
+//        log.info("Deleted location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
     }
 
     private Long getUserIdBySession(UUID sessionId) {
@@ -99,8 +97,7 @@ public class LocationService {
         return session.getUser().getId();
     }
 
-    private LocationSavedDto buildLocationSavedDto(Location location) {
-        log.info("Build location {}", location.getName());
+    private LocationSavedDto mapToLocationSavedDto(Location location) {
         return LocationSavedDto.builder()
                 .city(location.getName())
                 .latitude(location.getLatitude())

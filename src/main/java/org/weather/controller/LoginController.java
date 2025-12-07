@@ -86,7 +86,7 @@ public class LoginController {
         ResponseCookie sessionIdCookie = ResponseCookie.from("sessionId", sessionIdStr)
                 .httpOnly(true)
                 .path("/")
-                .maxAge(60 * 1)
+                .maxAge(60 * 10)
                 .build();
 
         response.addHeader("Set-Cookie", sessionIdCookie.toString());
