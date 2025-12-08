@@ -38,7 +38,7 @@
                     <label for="username" class="form-label">Username</label>
                     <div class="input-group has-validation">
                         <input type="text" id="username" th:field="*{login}" class="form-control"
-                               th:classappend="${#fields.hasErrors('login')} ? 'is-invalid'"/>
+                               th:classappend="${#fields.hasErrors('login')} ? 'is-invalid'" required value=""/>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('login')}">
                             <span th:errors="*{login}"></span>
                         </div>
@@ -48,7 +48,13 @@
                 <!-- PASSWORD -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" th:field="*{password}" required value=""/>
+                    <div class="input-group has-validation">
+                        <input type="password" id="password" th:field="*{password}" class="form-control"
+                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" required value=""/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}">
+                            <span th:errors="*{password}"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <input type="hidden" name="redirect_to" value="http://localhost/"/>

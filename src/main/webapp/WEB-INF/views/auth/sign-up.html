@@ -38,7 +38,7 @@
                     <label for="username" class="form-label">Username</label>
                     <div class="input-group has-validation">
                         <input type="text" id="username" th:field="*{login}" class="form-control"
-                               th:classappend="${#fields.hasErrors('login')} ? 'is-invalid'"/>
+                               th:classappend="${#fields.hasErrors('login')} ? 'is-invalid'" required value=""/>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('login')}">
                             <span th:errors="*{login}"></span>
                         </div>
@@ -50,7 +50,7 @@
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group has-validation">
                         <input type="password" id="password" th:field="*{password}" class="form-control"
-                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"/>
+                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" required value=""/>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}">
                             <span th:errors="*{password}"></span>
                         </div>
@@ -60,7 +60,7 @@
                 <!-- CONFIRM PASSWORD -->
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Repeat password</label>
-                    <input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control"/>
+                    <input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control" required value=""/>
                 </div>
 
                 <input type="hidden" name="redirect_to" value="http://localhost/"/>

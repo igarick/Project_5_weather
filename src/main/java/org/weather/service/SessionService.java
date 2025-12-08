@@ -1,5 +1,6 @@
 package org.weather.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +11,21 @@ import org.weather.dto.SessionIdDto;
 import org.weather.dto.UserIdDto;
 import org.weather.exception.DaoException;
 import org.weather.exception.ErrorInfo;
+import org.weather.exception.SessionNotFoundException;
 import org.weather.model.Session;
 import org.weather.model.User;
 import org.weather.repository.SessionRepository;
 import org.weather.utils.SessionProperty;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class SessionService {
-    private static final Logger log = LoggerFactory.getLogger(SessionService.class);
-
     private final SessionRepository sessionRepository;
     private final SessionProperty sessionProperty;
 
@@ -34,28 +36,27 @@ public class SessionService {
     }
 
     public Optional<SessionIdDto> findCurrentSession(SessionIdDto sessionIdDto) {
-        UUID sessionId = sessionIdDto.getSessionId();
-        log.info("Начат процесс поиска сессии для UUID = {}", sessionId.toString());
-
-        Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
+        log.info("Searching for session by sessionId = {}", sessionIdDto.getSessionId());
+//        UUID sessionId = sessionIdDto.getSessionId();
+        Optional<Session> sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
 
         if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
-            log.info("Получена действующая сессия для пользователя {}", sessionOptional.get().getUser().getLogin());
+            log.info("Received current session for user = {}", sessionOptional.get().getUser().getLogin());
             return Optional.of(new SessionIdDto(sessionOptional.get().getId()));
         }
 
-        log.warn("Сессия для данного пользователя истекла или ее нет");
+        log.warn("Session is expired or absent");
         return Optional.empty();
     }
 
     private boolean isExpired(Session session) {
-        return session.getExpiresAt().isBefore(OffsetDateTime.now());
+        return session.getExpiresAt().isBefore(OffsetDateTime.now(ZoneOffset.UTC));
     }
 
     @Transactional
     public SessionIdDto createSession(UserIdDto userId) {
-        log.info("Начало создание сессии для пользователя {}", userId.getId());
-        OffsetDateTime now = OffsetDateTime.now();
+        log.info("Creating session for user = {}", userId.getId());
+        OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
         OffsetDateTime dateTime = now.plusSeconds(sessionProperty.getSessionTimeout());
 
         Session session = new Session();
@@ -75,5 +76,14 @@ public class SessionService {
 
         log.info("Session for user {} was successfully created", session.getUser().getId());
         return new SessionIdDto(session.getId());
+    }
+
+    @Transactional
+    public void deactivateSession(SessionIdDto sessionIdDto) {
+        log.info("Deactivating session = {}", sessionIdDto.getSessionId());
+        Optional<Session> sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
+        Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
+
+        session.setExpiresAt(OffsetDateTime.now(ZoneOffset.UTC).minusMinutes(1));
     }
 }

@@ -2,6 +2,7 @@ package org.weather.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.weather.dto.InputUserLoginDto;
 import org.weather.dto.SessionIdDto;
 import org.weather.dto.UserIdDto;
+import org.weather.exception.DaoException;
+import org.weather.exception.ErrorInfo;
 import org.weather.exception.SessionNotFoundException;
 import org.weather.exception.InvalidUserOrPasswordException;
 import org.weather.service.SessionService;
@@ -21,11 +24,10 @@ import org.weather.validator.CookieParamValidatorAndHandler;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Controller
 @RequestMapping("/auth/sign-in")
 public class LoginController {
-    private final Logger log = LoggerFactory.getLogger(LoginController.class);
-
     private final UserService userService;
     private final SessionService sessionService;
     private final CookieParamValidatorAndHandler validatorAndHandler;
@@ -38,18 +40,16 @@ public class LoginController {
     }
 
     @GetMapping()
-    public String showSignUpForm(@ModelAttribute("userDto") InputUserLoginDto userDto) {
-        log.info("Go to the login page");
+    public String showSignInForm(@ModelAttribute("userDto") InputUserLoginDto userDto) {
         return "auth/sign-in";
     }
 
     @PostMapping()
-    public String showSignInForm(@ModelAttribute("userDto") @Valid InputUserLoginDto userDto,
-                                 BindingResult bindingResult,
-                                 @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
-                                 HttpServletResponse response
+    public String processSignIn(@ModelAttribute("userDto") @Valid InputUserLoginDto userDto,
+                                BindingResult bindingResult,
+                                @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
+                                HttpServletResponse response
     ) {
-        // валидация ввода
         if (bindingResult.hasErrors()) {
             return "auth/sign-in";
         }

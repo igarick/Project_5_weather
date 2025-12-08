@@ -1,5 +1,6 @@
 package org.weather.exception;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -12,8 +13,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DaoException.class)
-    public String handleDaoErrors() {
-        return "redirect:/error";
+    public String handleDaoErrors(DaoException e, Model model) {
+        model.addAttribute("errorMessage", e.getErrorInfo().getMessage());
+        model.addAttribute("statusCode", e.getErrorInfo().getStatusCode());
+        return "error";
     }
 
     @ExceptionHandler(MappingException.class)

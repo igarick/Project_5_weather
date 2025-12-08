@@ -36,7 +36,7 @@ public class WeatherService {
     }
 
     public List<LocationDto> getLocationByCityName(LocationNameDto locationNameDto) {
-        log.info("Request by cityName = {} to API", locationNameDto);
+        log.info("Request by cityName = {} to API", locationNameDto.getLocalName());
         String localName = locationNameDto.getLocalName();
         String encodedCity = URLEncoder.encode(localName, StandardCharsets.UTF_8);
         String url = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=10&appid=810674edcfe03956f3d710e75080d5c8", encodedCity);

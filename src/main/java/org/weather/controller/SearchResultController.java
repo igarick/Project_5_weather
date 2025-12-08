@@ -1,6 +1,5 @@
 package org.weather.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,9 +36,8 @@ public class SearchResultController {
     @PostMapping
     public String searchLocation(@RequestParam("locationName") String locationNameParam,     //@ModelAttribute("localName") String localNameParam,
                                  @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
-                                 Model model, HttpServletResponse response) {
+                                 Model model) {
         if(!StringUtils.hasText(locationNameParam)) {
-            log.info("Input is empty");
             return "search-results";
         }
 

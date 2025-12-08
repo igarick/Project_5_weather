@@ -32,7 +32,7 @@ public enum ErrorInfo {
 
 
 
-    END("--------------------");
+    END("---------SOS-----------", SC_CONTINUE);
 
 
     private final String message;
