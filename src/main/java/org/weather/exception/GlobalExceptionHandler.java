@@ -1,6 +1,7 @@
 package org.weather.exception;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -21,7 +22,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MappingException.class)
     public String handleMappingErrors() {
-        return "redirect:/error";
+        return "error";
     }
+
+    @ExceptionHandler(DeserializationException.class)
+    public String handleDeserializationErrors() {
+        return "error";
+    }
+
+
+//
+//    @ExceptionHandler(DuplicateUserException.class)
+//    public String handleDuplicateError(DuplicateUserException e, BindingResult bindingResult) {
+//        bindingResult.reject("login", e.getErrorInfo().getMessage());
+//        return "auth/sign-up";
+//    }
 
 }

@@ -37,8 +37,13 @@ public class SessionService {
 
     public Optional<SessionIdDto> findCurrentSession(SessionIdDto sessionIdDto) {
         log.info("Searching for session by sessionId = {}", sessionIdDto.getSessionId());
-//        UUID sessionId = sessionIdDto.getSessionId();
-        Optional<Session> sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
+
+        Optional<Session> sessionOptional;
+        try {
+            sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
+        } catch (Exception e) {
+            throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
+        }
 
         if (sessionOptional.isPresent() && !isExpired(sessionOptional.get())) {
             log.info("Received current session for user = {}", sessionOptional.get().getUser().getLogin());
@@ -59,19 +64,20 @@ public class SessionService {
         OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
         OffsetDateTime dateTime = now.plusSeconds(sessionProperty.getSessionTimeout());
 
-        Session session = new Session();
         UUID uuid = UUID.randomUUID();
-        session.setId(uuid);
-        session.setUser(User.builder()
-                .id(userId.getId())
-                .build());
-        session.setExpiresAt(dateTime);
+        Session session = Session.builder()
+                .id(uuid)
+                .user(User.builder()
+                        .id(userId.getId())
+                        .build())
+                .expiresAt(dateTime)
+                .build();
 
         try {
             sessionRepository.save(session);
         } catch (Exception e) {
             log.error("Failed to save session");
-            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
+            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR, e);
         }
 
         log.info("Session for user {} was successfully created", session.getUser().getId());
@@ -81,7 +87,14 @@ public class SessionService {
     @Transactional
     public void deactivateSession(SessionIdDto sessionIdDto) {
         log.info("Deactivating session = {}", sessionIdDto.getSessionId());
-        Optional<Session> sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
+
+        Optional<Session> sessionOptional;
+        try {
+            sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
+        } catch (Exception e) {
+            throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
+        }
+
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
 
         session.setExpiresAt(OffsetDateTime.now(ZoneOffset.UTC).minusMinutes(1));

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.weather.dto.LocationNameDto;
@@ -48,7 +46,7 @@ public class WeatherService {
             locations = jsonMapper.readValue(body, new TypeReference<List<LocationDto>>() {});
         } catch (JsonProcessingException e) {
             log.error("Mapping API error");
-            throw new SerializationOrDeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
+            throw new DeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
         }
         log.info("Found {} locations", locations.size());
         return locations;
@@ -64,7 +62,7 @@ public class WeatherService {
             weatherDto = jsonMapper.readValue(body, new TypeReference<WeatherDto>() {});
         } catch (JsonProcessingException e) {
             log.error("Mapping API error");
-            throw new SerializationOrDeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
+            throw new DeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
         }
         log.info("Found weather for city = {}", weatherDto.getCity());
         return weatherDto;

@@ -12,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "sessions", schema = "project_schema")
 public class Session {

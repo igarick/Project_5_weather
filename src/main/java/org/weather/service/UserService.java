@@ -50,7 +50,7 @@ public class UserService {
             log.warn("Failed to save user {}", userDto.getLogin());
             throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
         }
-        log.info("User {} saved", userDto.getLogin());
+        log.info("User = {} saved", userDto.getLogin());
     }
 
     public UserIdDto authenticateUser(InputUserLoginDto userDto) {

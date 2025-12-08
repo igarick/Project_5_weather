@@ -21,7 +21,6 @@ public class SearchResultController {
     private final WeatherService weatherService;
     private final CookieParamValidatorAndHandler validatorAndHandler;
 
-
     @Autowired
     public SearchResultController(WeatherService weatherService, CookieParamValidatorAndHandler validatorAndHandler) {
         this.weatherService = weatherService;
@@ -34,7 +33,7 @@ public class SearchResultController {
     }
 
     @PostMapping
-    public String searchLocation(@RequestParam("locationName") String locationNameParam,     //@ModelAttribute("localName") String localNameParam,
+    public String searchLocation(@RequestParam("locationName") String locationNameParam,
                                  @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                                  Model model) {
         if(!StringUtils.hasText(locationNameParam)) {
