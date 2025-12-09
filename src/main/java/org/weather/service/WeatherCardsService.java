@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.weather.dto.LocationSavedDto;
-import org.weather.dto.SessionIdDto;
+import org.weather.dto.location.LocationSavedDto;
+import org.weather.dto.session.SessionIdDto;
 import org.weather.dto.weather.WeatherDto;
 import org.weather.dto.weather.WeatherViewDto;
 import org.weather.utils.WeatherMapper;
@@ -45,6 +45,7 @@ public class WeatherCardsService {
         weatherByCoordinates.setLatitude(locationSavedDto.getLatitude());
         weatherByCoordinates.setLongitude(locationSavedDto.getLongitude());
         log.info("Weather by coordinates city = {}, lat = {}, lon = {} mapped", weatherByCoordinates.getCity(), weatherByCoordinates.getLatitude(), weatherByCoordinates.getLongitude());
+
         return weatherByCoordinates;
     }
 }

@@ -1,10 +1,12 @@
 package org.weather.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.weather.exception.app.SessionNotFoundException;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -13,29 +15,18 @@ public class GlobalExceptionHandler {
         return "redirect:/auth/sign-in";
     }
 
-    @ExceptionHandler(DaoException.class)
-    public String handleDaoErrors(DaoException e, Model model) {
+    @ExceptionHandler(BaseException.class)
+    public String handleBasesErrors(BaseException e, Model model) {
         model.addAttribute("errorMessage", e.getErrorInfo().getMessage());
         model.addAttribute("statusCode", e.getErrorInfo().getStatusCode());
         return "error";
     }
 
-    @ExceptionHandler(MappingException.class)
-    public String handleMappingErrors() {
+    @ExceptionHandler(Exception.class)
+    public String handleGeneralErrors(Exception e, Model model) {
+        log.error("Unknown error", e);
+        model.addAttribute("errorMessage", ErrorInfo.UNKNOWN_ERROR.getMessage());
+        model.addAttribute("statusCode", ErrorInfo.UNKNOWN_ERROR.getStatusCode());
         return "error";
     }
-
-    @ExceptionHandler(DeserializationException.class)
-    public String handleDeserializationErrors() {
-        return "error";
-    }
-
-
-//
-//    @ExceptionHandler(DuplicateUserException.class)
-//    public String handleDuplicateError(DuplicateUserException e, BindingResult bindingResult) {
-//        bindingResult.reject("login", e.getErrorInfo().getMessage());
-//        return "auth/sign-up";
-//    }
-
 }

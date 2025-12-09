@@ -8,13 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.weather.dto.InputUserLoginDto;
-import org.weather.dto.InputUserRegistrationDto;
-import org.weather.dto.SessionIdDto;
-import org.weather.dto.UserIdDto;
-import org.weather.exception.DuplicateUserException;
-import org.weather.exception.InvalidUserOrPasswordException;
-import org.weather.exception.SessionNotFoundException;
+import org.weather.dto.user.UserLoginDto;
+import org.weather.dto.user.UserRegistrationDto;
+import org.weather.dto.session.SessionIdDto;
+import org.weather.dto.user.UserIdDto;
+import org.weather.exception.app.DuplicateUserException;
+import org.weather.exception.app.InvalidUserOrPasswordException;
+import org.weather.exception.app.SessionNotFoundException;
 import org.weather.service.SessionService;
 import org.weather.service.UserService;
 import org.weather.validator.CookieParamValidatorAndHandler;
@@ -38,12 +38,12 @@ public class AuthenticationController {
 
 
     @GetMapping("/sign-in")
-    public String showSignInForm(@ModelAttribute("userDto") InputUserLoginDto userDto) {
+    public String showSignInForm(@ModelAttribute("userDto") UserLoginDto userDto) {
         return "auth/sign-in";
     }
 
     @PostMapping("/sign-in")
-    public String processSignIn(@ModelAttribute("userDto") @Valid InputUserLoginDto userDto,
+    public String processSignIn(@ModelAttribute("userDto") @Valid UserLoginDto userDto,
                                 BindingResult bindingResult,
                                 @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                                 HttpServletResponse response) {
@@ -85,12 +85,12 @@ public class AuthenticationController {
     }
 
     @GetMapping("/sign-up")
-    public String showSignUpForm(@ModelAttribute("userDto") InputUserRegistrationDto userDto) {
+    public String showSignUpForm(@ModelAttribute("userDto") UserRegistrationDto userDto) {
         return "auth/sign-up";
     }
 
     @PostMapping("/sign-up")
-    public String processSignUp(@ModelAttribute("userDto") @Valid InputUserRegistrationDto userDto,
+    public String processSignUp(@ModelAttribute("userDto") @Valid UserRegistrationDto userDto,
                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/sign-up";

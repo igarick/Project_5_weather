@@ -1,4 +1,4 @@
-package org.weather.dto;
+package org.weather.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -6,10 +6,15 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.weather.dto.LocationNameDto;
-import org.weather.dto.LocationDto;
+import org.weather.dto.location.LocationDto;
+import org.weather.dto.location.LocationNameDto;
 import org.weather.dto.weather.WeatherDto;
 import org.weather.exception.*;
+import org.weather.exception.api.BadRequestWeatherApiException;
+import org.weather.exception.api.BadWeatherApiKeyException;
+import org.weather.exception.api.FrequentRequestWeatherApiException;
+import org.weather.exception.api.UnexpectedWeatherApiException;
+import org.weather.exception.app.DeserializationException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -43,7 +48,8 @@ public class WeatherService {
 
         List<LocationDto> locations = null;
         try {
-            locations = jsonMapper.readValue(body, new TypeReference<List<LocationDto>>() {});
+            locations = jsonMapper.readValue(body, new TypeReference<List<LocationDto>>() {
+            });
         } catch (JsonProcessingException e) {
             log.error("Mapping API error");
             throw new DeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
@@ -59,7 +65,8 @@ public class WeatherService {
 
         WeatherDto weatherDto = null;
         try {
-            weatherDto = jsonMapper.readValue(body, new TypeReference<WeatherDto>() {});
+            weatherDto = jsonMapper.readValue(body, new TypeReference<WeatherDto>() {
+            });
         } catch (JsonProcessingException e) {
             log.error("Mapping API error");
             throw new DeserializationException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
@@ -99,7 +106,8 @@ public class WeatherService {
                 throw new BadRequestWeatherApiException(ErrorInfo.REQUEST_API_ERROR);
             case 429:
                 throw new FrequentRequestWeatherApiException(ErrorInfo.FREQUENT_REQUEST_API_ERROR);
-            default: throw new UnexpectedWeatherApiException(ErrorInfo.UNEXPECTED_API_ERROR);
+            default:
+                throw new UnexpectedWeatherApiException(ErrorInfo.UNEXPECTED_API_ERROR);
         }
     }
 }

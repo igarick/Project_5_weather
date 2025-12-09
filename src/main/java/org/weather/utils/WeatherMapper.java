@@ -3,10 +3,9 @@ package org.weather.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.weather.dto.weather.WeatherDto;
-import org.weather.dto.weather.WeatherInfoDto;
 import org.weather.dto.weather.WeatherViewDto;
 import org.weather.exception.ErrorInfo;
-import org.weather.exception.MappingException;
+import org.weather.exception.app.MappingException;
 
 @Slf4j
 @Component

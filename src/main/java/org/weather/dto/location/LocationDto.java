@@ -1,4 +1,4 @@
-package org.weather.dto;
+package org.weather.dto.location;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

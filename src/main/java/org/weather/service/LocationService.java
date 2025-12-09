@@ -4,13 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.weather.dto.LocationSavedDto;
-import org.weather.dto.LocationToDeleteDto;
-import org.weather.dto.LocationToSaveDto;
-import org.weather.dto.SessionIdDto;
-import org.weather.exception.DaoException;
+import org.weather.dto.location.LocationSavedDto;
+import org.weather.dto.location.LocationToDeleteDto;
+import org.weather.dto.location.LocationToSaveDto;
+import org.weather.dto.session.SessionIdDto;
+import org.weather.exception.app.DaoException;
 import org.weather.exception.ErrorInfo;
-import org.weather.exception.SessionNotFoundException;
+import org.weather.exception.app.SessionNotFoundException;
 import org.weather.model.Location;
 import org.weather.model.Session;
 import org.weather.model.User;
@@ -52,8 +52,8 @@ public class LocationService {
         try {
             locationRepository.save(location);
         } catch (Exception e) {
-//            log.error("Failed to save location name = {}", locationDto.getLocationName());
-            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
+            log.error("Failed to save location name = {}", locationDto.getLocationName());
+            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR, e);
         }
         log.info("Location {} saved", locationDto.getLocationName());
     }
@@ -66,7 +66,7 @@ public class LocationService {
         try {
             locations = locationRepository.findAllByUser_Id(userId);
         } catch (Exception e) {
-//            log.error("Failed to fetch locations");
+            log.error("Failed to fetch locations");
             throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
         }
 
@@ -80,15 +80,16 @@ public class LocationService {
 
     @Transactional
     public void deleteLocation(LocationToDeleteDto location) {
-        log.info("Deleting location for sessionId {}", location.getSessionId());
+        log.info("Deleting location lat = {}, lon = {} for sessionId {}", location.getLatitude(), location.getLongitude(), location.getSessionId());
         Long userId = getUserIdBySession(location.getSessionId());
 
         try {
             locationRepository.deleteByUser_IdAndLatitudeAndLongitude(userId, location.getLatitude(), location.getLongitude());
         } catch (Exception e) {
+            log.error("Failed to delete location");
             throw new DaoException(ErrorInfo.DATA_DELETE_ERROR, e);
         }
-//        log.info("Deleted location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
+        log.info("Deleted location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
     }
 
     private Long getUserIdBySession(UUID sessionId) {

@@ -1,4 +1,4 @@
-package org.weather.dto;
+package org.weather.dto.location;
 
 import lombok.*;
 

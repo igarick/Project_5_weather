@@ -8,13 +8,14 @@ import static jakarta.servlet.http.HttpServletResponse.*;
 @AllArgsConstructor
 @Getter
 public enum ErrorInfo {
+    // authentification
     LOGIN_DUPLICATE_ERROR("Account with this email already exists", SC_CONFLICT),
     USER_OR_PASSWORD_ERROR("Invalid username or password", SC_BAD_REQUEST),
     UNKNOWN_ERROR("Oops! Something Went Wrong. We're sorry, but an unexpected error has occurred. Please try again later", SC_INTERNAL_SERVER_ERROR),
 
     // from Api
     REQUEST_API_KEY_ERROR("Bad API key in API request for authorisation", SC_UNAUTHORIZED),
-    REQUEST_API_ERROR("Bad request", SC_NOT_FOUND),
+    REQUEST_API_ERROR("City not found or invalid request format", SC_NOT_FOUND),
     FREQUENT_REQUEST_API_ERROR("Don't make more than 60 API calls per minute", 429),
     UNEXPECTED_API_ERROR("We're sorry, but an unexpected error has occurred. Please try again later", SC_INTERNAL_SERVER_ERROR),
     MAPPING_RESPONSE_API_ERROR("Mapping response API error", SC_INTERNAL_SERVER_ERROR),
@@ -26,14 +27,7 @@ public enum ErrorInfo {
     // dao
     DATA_SAVE_ERROR("Data save error", SC_INTERNAL_SERVER_ERROR),
     DATA_FETCH_ERROR("Data fetch error", SC_INTERNAL_SERVER_ERROR),
-    DATA_DELETE_ERROR("Data delete error", SC_INTERNAL_SERVER_ERROR),
-
-
-
-
-
-    END("---------SOS-----------", SC_CONTINUE);
-
+    DATA_DELETE_ERROR("Data delete error", SC_INTERNAL_SERVER_ERROR);
 
     private final String message;
     private final int statusCode;

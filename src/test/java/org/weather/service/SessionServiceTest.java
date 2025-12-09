@@ -9,14 +9,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.weather.config.SpringTestConfig;
-import org.weather.dto.InputUserRegistrationDto;
-import org.weather.dto.SessionIdDto;
-import org.weather.dto.UserIdDto;
-import org.weather.model.User;
+import org.weather.dto.user.UserRegistrationDto;
+import org.weather.dto.session.SessionIdDto;
+import org.weather.dto.user.UserIdDto;
 import org.weather.repository.UserRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +36,7 @@ public class SessionServiceTest {
 
     @Test
     void userSessionShouldBeExpired() throws InterruptedException {
-        userService.registerUser(new InputUserRegistrationDto("login", "password", "password"));
+        userService.registerUser(new UserRegistrationDto("login", "password", "password"));
         Long userId = userRepository.findByLogin("login").get().getId();
 
         SessionIdDto sessionIdDto = sessionService.createSession(new UserIdDto(userId));

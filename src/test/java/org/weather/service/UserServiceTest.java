@@ -8,8 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.weather.config.SpringTestConfig;
-import org.weather.dto.InputUserRegistrationDto;
-import org.weather.exception.DuplicateUserException;
+import org.weather.dto.user.UserRegistrationDto;
+import org.weather.exception.app.DuplicateUserException;
 import org.weather.model.User;
 import org.weather.repository.UserRepository;
 
@@ -33,7 +33,7 @@ class UserServiceTest {
 
     @Test
     void saveUser_shouldPersistUser() {
-        InputUserRegistrationDto dto = new InputUserRegistrationDto("login", "password", "password");
+        UserRegistrationDto dto = new UserRegistrationDto("login", "password", "password");
 
         userService.registerUser(dto);
 
@@ -44,7 +44,7 @@ class UserServiceTest {
 
     @Test
     void duplicateUserShouldThrowException() {
-        InputUserRegistrationDto dto = new InputUserRegistrationDto("login", "password", "password");
+        UserRegistrationDto dto = new UserRegistrationDto("login", "password", "password");
 
         userService.registerUser(dto);
         assertThrows(DuplicateUserException.class,

@@ -1,4 +1,7 @@
-package org.weather.exception;
+package org.weather.exception.app;
+
+import org.weather.exception.BaseException;
+import org.weather.exception.ErrorInfo;
 
 public class DaoException extends BaseException {
     public DaoException(ErrorInfo errorInfo) {

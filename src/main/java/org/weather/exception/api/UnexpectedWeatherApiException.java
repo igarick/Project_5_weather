@@ -1,4 +1,7 @@
-package org.weather.exception;
+package org.weather.exception.api;
+
+import org.weather.exception.BaseException;
+import org.weather.exception.ErrorInfo;
 
 public class UnexpectedWeatherApiException extends BaseException {
     public UnexpectedWeatherApiException(ErrorInfo errorInfo) {

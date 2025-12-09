@@ -1,7 +1,5 @@
-package org.weather.dto;
+package org.weather.dto.location;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;

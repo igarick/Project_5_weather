@@ -1,17 +1,14 @@
 package org.weather.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-import org.weather.dto.SessionIdDto;
-import org.weather.dto.UserIdDto;
-import org.weather.exception.DaoException;
+import org.weather.dto.session.SessionIdDto;
+import org.weather.dto.user.UserIdDto;
+import org.weather.exception.app.DaoException;
 import org.weather.exception.ErrorInfo;
-import org.weather.exception.SessionNotFoundException;
+import org.weather.exception.app.SessionNotFoundException;
 import org.weather.model.Session;
 import org.weather.model.User;
 import org.weather.repository.SessionRepository;
@@ -49,7 +46,6 @@ public class SessionService {
             log.info("Received current session for user = {}", sessionOptional.get().getUser().getLogin());
             return Optional.of(new SessionIdDto(sessionOptional.get().getId()));
         }
-
         log.warn("Session is expired or absent");
         return Optional.empty();
     }
@@ -59,27 +55,25 @@ public class SessionService {
     }
 
     @Transactional
-    public SessionIdDto createSession(UserIdDto userId) {
-        log.info("Creating session for user = {}", userId.getId());
+    public SessionIdDto createSession(UserIdDto userIdDto) {
+        log.info("Creating session for user = {}", userIdDto.getId());
         OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
-        OffsetDateTime dateTime = now.plusSeconds(sessionProperty.getSessionTimeout());
+        OffsetDateTime expirationTime = now.plusSeconds(sessionProperty.getSessionTimeout());
 
         UUID uuid = UUID.randomUUID();
         Session session = Session.builder()
                 .id(uuid)
                 .user(User.builder()
-                        .id(userId.getId())
+                        .id(userIdDto.getId())
                         .build())
-                .expiresAt(dateTime)
+                .expiresAt(expirationTime)
                 .build();
-
         try {
             sessionRepository.save(session);
         } catch (Exception e) {
-            log.error("Failed to save session");
+            log.error("Failed to save session for user = {}", userIdDto.getId());
             throw new DaoException(ErrorInfo.DATA_SAVE_ERROR, e);
         }
-
         log.info("Session for user {} was successfully created", session.getUser().getId());
         return new SessionIdDto(session.getId());
     }
@@ -87,16 +81,14 @@ public class SessionService {
     @Transactional
     public void deactivateSession(SessionIdDto sessionIdDto) {
         log.info("Deactivating session = {}", sessionIdDto.getSessionId());
-
         Optional<Session> sessionOptional;
         try {
             sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
         } catch (Exception e) {
+            log.error("Failed to fetch session by sessionId = {}", sessionIdDto.getSessionId());
             throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
         }
-
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
-
         session.setExpiresAt(OffsetDateTime.now(ZoneOffset.UTC).minusMinutes(1));
     }
 }

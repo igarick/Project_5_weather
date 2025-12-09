@@ -1,17 +1,17 @@
-package org.weather.dto;
+package org.weather.dto.location;
 
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
 @Builder
 @ToString
-public class LocationSavedDto {
-    private String city;
+public class LocationToDeleteDto {
+    private UUID sessionId;
     private BigDecimal latitude;
     private BigDecimal longitude;
 }

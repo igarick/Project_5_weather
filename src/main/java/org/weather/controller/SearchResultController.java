@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.weather.dto.LocationDto;
-import org.weather.dto.LocationNameDto;
+import org.weather.dto.location.LocationDto;
+import org.weather.dto.location.LocationNameDto;
 import org.weather.service.WeatherService;
 import org.weather.validator.CookieParamValidatorAndHandler;
 
@@ -36,7 +36,7 @@ public class SearchResultController {
     public String searchLocation(@RequestParam("locationName") String locationNameParam,
                                  @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                                  Model model) {
-        if(!StringUtils.hasText(locationNameParam)) {
+        if (!StringUtils.hasText(locationNameParam)) {
             return "search-results";
         }
 

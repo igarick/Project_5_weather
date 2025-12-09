@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.weather.dto.LocationNameDto;
-import org.weather.dto.LocationDto;
-import org.weather.exception.UnexpectedWeatherApiException;
+import org.weather.dto.location.LocationNameDto;
+import org.weather.dto.location.LocationDto;
+import org.weather.exception.api.UnexpectedWeatherApiException;
 
 import java.io.IOException;
 import java.math.BigDecimal;

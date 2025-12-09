@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.weather.dto.SessionIdDto;
-import org.weather.exception.SessionNotFoundException;
+import org.weather.dto.session.SessionIdDto;
 import org.weather.exception.ErrorInfo;
+import org.weather.exception.app.SessionNotFoundException;
 import org.weather.service.SessionService;
 
 import java.util.Optional;

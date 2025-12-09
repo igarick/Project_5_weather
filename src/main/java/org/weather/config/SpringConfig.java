@@ -26,8 +26,6 @@ import java.net.http.HttpClient;
 import java.util.Properties;
 
 @Configuration
-//@Profile("main")
-//@Profile("!test")
 @EnableWebMvc
 @ComponentScan("org.weather")
 @EnableTransactionManagement

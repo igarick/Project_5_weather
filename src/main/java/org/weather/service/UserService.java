@@ -1,30 +1,27 @@
 package org.weather.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.weather.dto.InputUserLoginDto;
-import org.weather.dto.InputUserRegistrationDto;
-import org.weather.dto.UserIdDto;
-import org.weather.exception.DaoException;
-import org.weather.exception.DuplicateUserException;
+import org.weather.dto.user.UserLoginDto;
+import org.weather.dto.user.UserRegistrationDto;
+import org.weather.dto.user.UserIdDto;
+import org.weather.exception.app.DaoException;
+import org.weather.exception.app.DuplicateUserException;
 import org.weather.exception.ErrorInfo;
-import org.weather.exception.InvalidUserOrPasswordException;
+import org.weather.exception.app.InvalidUserOrPasswordException;
 import org.weather.model.User;
 import org.weather.repository.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class UserService {
-    private static final Logger log = LoggerFactory.getLogger(UserService.class);
-
     private final UserRepository userRepository;
 
     @Autowired
@@ -33,7 +30,7 @@ public class UserService {
     }
 
     @Transactional
-    public void registerUser(InputUserRegistrationDto userDto) { //String login, String password
+    public void registerUser(UserRegistrationDto userDto) { //String login, String password
         String hashedPassword = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
 
         User user = User.builder()
@@ -48,12 +45,12 @@ public class UserService {
             throw new DuplicateUserException(ErrorInfo.LOGIN_DUPLICATE_ERROR, e);
         } catch (Exception e) {
             log.warn("Failed to save user {}", userDto.getLogin());
-            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR,e);
+            throw new DaoException(ErrorInfo.DATA_SAVE_ERROR, e);
         }
         log.info("User = {} saved", userDto.getLogin());
     }
 
-    public UserIdDto authenticateUser(InputUserLoginDto userDto) {
+    public UserIdDto authenticateUser(UserLoginDto userDto) {
         Optional<User> optionalUser = userRepository.findByLogin((userDto.getLogin()));
         User user = optionalUser.orElseThrow(() -> {
             log.warn("User {} not found", userDto.getLogin());

@@ -7,8 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.weather.dto.SessionIdDto;
-import org.weather.dto.weather.WeatherDto;
+import org.weather.dto.session.SessionIdDto;
 import org.weather.dto.weather.WeatherViewDto;
 import org.weather.service.WeatherCardsService;
 import org.weather.validator.CookieParamValidatorAndHandler;
@@ -33,7 +32,6 @@ public class WeatherController {
     @GetMapping
     public String home(@CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
                        Model model) {
-
         UUID sessionId = validatorAndHandler.extractSessionId(sessionIdParam);
         SessionIdDto sessionIdDto = new SessionIdDto(sessionId);
         SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdDto);
