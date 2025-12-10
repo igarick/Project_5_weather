@@ -1,6 +1,7 @@
 package org.weather.config;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
+import org.weather.utils.AppProperty;
 
 import javax.sql.DataSource;
 import java.net.http.HttpClient;
@@ -35,11 +37,13 @@ public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
     private final Environment env;
+    private final AppProperty appProperty;
 
     @Autowired
-    public SpringConfig(ApplicationContext applicationContext, Environment env) {
+    public SpringConfig(ApplicationContext applicationContext, Environment env, AppProperty appProperty) {
         this.applicationContext = applicationContext;
         this.env = env;
+        this.appProperty = appProperty;
     }
 
     // ---------- VIEW LAYER ----------
@@ -80,9 +84,15 @@ public class SpringConfig implements WebMvcConfigurer {
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName(env.getRequiredProperty("hibernate.driver_class"));
-        ds.setUrl(env.getRequiredProperty("hibernate.connection.url"));
-        ds.setUsername(env.getRequiredProperty("hibernate.connection.username"));
-        ds.setPassword(env.getRequiredProperty("hibernate.connection.password"));
+
+        ds.setUrl(appProperty.getDbUrl());
+        ds.setUsername(appProperty.getDbUser());
+        ds.setPassword(appProperty.getDbPassword());
+
+
+//        ds.setUrl(env.getRequiredProperty("hibernate.connection.url"));
+//        ds.setUsername(env.getRequiredProperty("hibernate.connection.username"));
+//        ds.setPassword(env.getRequiredProperty("hibernate.connection.password"));
         return ds;
     }
 //    @Bean
@@ -154,4 +164,6 @@ public class SpringConfig implements WebMvcConfigurer {
     public JsonMapper jsonMapper() {
         return new JsonMapper();
     }
+
+
 }

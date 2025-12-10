@@ -15,6 +15,7 @@ import org.weather.exception.api.BadWeatherApiKeyException;
 import org.weather.exception.api.FrequentRequestWeatherApiException;
 import org.weather.exception.api.UnexpectedWeatherApiException;
 import org.weather.exception.app.DeserializationException;
+import org.weather.utils.AppProperty;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -31,18 +32,24 @@ import java.util.List;
 public class WeatherService {
     private final HttpClient client;
     private final JsonMapper jsonMapper;
+    private final AppProperty appProperty;
 
     @Autowired
-    public WeatherService(HttpClient client, JsonMapper jsonMapper) {
+    public WeatherService(HttpClient client, JsonMapper jsonMapper, AppProperty appProperty) {
         this.client = client;
         this.jsonMapper = jsonMapper;
+        this.appProperty = appProperty;
     }
 
     public List<LocationDto> getLocationByCityName(LocationNameDto locationNameDto) {
         log.info("Request by cityName = {} to API", locationNameDto.getLocalName());
         String localName = locationNameDto.getLocalName();
         String encodedCity = URLEncoder.encode(localName, StandardCharsets.UTF_8);
-        String url = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=10&appid=810674edcfe03956f3d710e75080d5c8", encodedCity);
+        String url = String.format("%s%s?q=%s&limit=10&appid=%s",
+                appProperty.getApiBaseUrl(),
+                appProperty.getApiGeocodingPath(),
+                encodedCity,
+                appProperty.getApiKey());
 
         String body = getWeatherApiResponse(url);
 
@@ -60,7 +67,12 @@ public class WeatherService {
 
     public WeatherDto getWeatherByCoordinates(BigDecimal latitude, BigDecimal longitude) {          //String latitude, String longitude
         log.info("Weather request by lat = {} lon = {} to API", latitude, longitude);
-        String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric&appid=810674edcfe03956f3d710e75080d5c8", latitude, longitude);
+        String url = String.format("%s%s?lat=%s&lon=%s&units=metric&appid=%s",
+                appProperty.getApiBaseUrl(),
+                appProperty.getApiWeatherPath(),
+                latitude,
+                longitude,
+                appProperty.getApiKey());
         String body = getWeatherApiResponse(url);
 
         WeatherDto weatherDto = null;

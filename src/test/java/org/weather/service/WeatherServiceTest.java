@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.weather.dto.location.LocationNameDto;
 import org.weather.dto.location.LocationDto;
 import org.weather.exception.api.UnexpectedWeatherApiException;
+import org.weather.utils.AppProperty;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -32,10 +33,11 @@ public class WeatherServiceTest {
     HttpResponse<String> mockResponse;
 
     WeatherService weatherService;
+    AppProperty appProperty;
 
     @BeforeEach
     void setup() {
-        weatherService = new WeatherService(mockClient, new JsonMapper());
+        weatherService = new WeatherService(mockClient, new JsonMapper(), appProperty);
     }
 
     @Test
