@@ -53,7 +53,7 @@ public class WeatherService {
 
         String body = getWeatherApiResponse(url);
 
-        List<LocationDto> locations = null;
+        List<LocationDto> locations;
         try {
             locations = jsonMapper.readValue(body, new TypeReference<List<LocationDto>>() {
             });
@@ -75,7 +75,7 @@ public class WeatherService {
                 appProperty.getApiKey());
         String body = getWeatherApiResponse(url);
 
-        WeatherDto weatherDto = null;
+        WeatherDto weatherDto;
         try {
             weatherDto = jsonMapper.readValue(body, new TypeReference<WeatherDto>() {
             });
@@ -94,7 +94,7 @@ public class WeatherService {
                 .GET()
                 .build();
 
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
