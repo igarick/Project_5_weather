@@ -90,11 +90,6 @@ public class SpringConfig implements WebMvcConfigurer {
         ds.setUrl(appProperty.getDbUrl());
         ds.setUsername(appProperty.getDbUser());
         ds.setPassword(appProperty.getDbPassword());
-
-
-//        ds.setUrl(env.getRequiredProperty("hibernate.connection.url"));
-//        ds.setUsername(env.getRequiredProperty("hibernate.connection.username"));
-//        ds.setPassword(env.getRequiredProperty("hibernate.connection.password"));
         return ds;
     }
 //    @Bean

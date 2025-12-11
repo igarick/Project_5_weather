@@ -32,12 +32,20 @@ public class WeatherServiceTest {
     @Mock
     HttpResponse<String> mockResponse;
 
-    WeatherService weatherService;
+    @Mock
     AppProperty appProperty;
+
+    WeatherService weatherService;
 
     @BeforeEach
     void setup() {
         weatherService = new WeatherService(mockClient, new JsonMapper(), appProperty);
+
+        when(appProperty.getApiBaseUrl()).thenReturn("https://api.openweathermap.org");
+        when(appProperty.getApiWeatherPath()).thenReturn("/data/2.5/weather");
+        when(appProperty.getApiGeocodingPath()).thenReturn("/geo/1.0/direct");
+        when(appProperty.getApiKey()).thenReturn("810674edcfe03956f3d710e75080d5c8");
+
     }
 
     @Test
