@@ -1,11 +1,13 @@
 package org.weather.config;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -104,7 +106,7 @@ public class SpringConfig implements WebMvcConfigurer {
 //        ds.setPassword(env.getRequiredProperty("hibernate.connection.password"));
 //
 
-//// Hikari-specific
+    /// / Hikari-specific
 //    ds.setMaximumPoolSize(Integer.parseInt(env.getRequiredProperty("hikari.maximumPoolSize")));
 //    ds.setMinimumIdle(Integer.parseInt(env.getRequiredProperty("hikari.minimumIdle")));
 //    ds.setIdleTimeout(Long.parseLong(env.getRequiredProperty("hikari.idleTimeout")));
@@ -146,7 +148,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
     // ---------- FLYWAY MIGRATIONS ----------
 
-//    @Profile("!test")
+    //    @Profile("!test")
     @Bean(initMethod = "migrate")
     public Flyway flyway(DataSource dataSource) {
         return Flyway.configure()

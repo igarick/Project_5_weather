@@ -80,13 +80,6 @@
       <version>42.7.3</version>
     </dependency>
 
-    <!-- FLYWAY (совместим с PostgreSQL 16) -->
-    <!--    <dependency>-->
-    <!--      <groupId>org.flywaydb</groupId>-->
-    <!--      <artifactId>flyway-core</artifactId>-->
-    <!--      <version>10.12.0</version>-->
-    <!--    </dependency>-->
-
     <!-- В pom.xml ЗАМЕНИ версию Flyway -->
     <dependency>
       <groupId>org.flywaydb</groupId>
@@ -118,13 +111,6 @@
       <version>${jackson.version}</version>
     </dependency>
 
-    <!--    &lt;!&ndash; UTILS &ndash;&gt;-->
-    <!--    <dependency>-->
-    <!--      <groupId>org.antlr</groupId>-->
-    <!--      <artifactId>antlr4-runtime</artifactId>-->
-    <!--      <version>4.13.0</version>-->
-    <!--    </dependency>-->
-
     <!-- SERVLET API (ONLY PROVIDED) -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
@@ -140,21 +126,13 @@
     </dependency>
 
     <!-- TESTING -->
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
-    <!--    <dependency>-->
-    <!--      <groupId>junit</groupId>-->
-    <!--      <artifactId>junit</artifactId>-->
-    <!--      <version>4.13.1</version>-->
-    <!--      <scope>test</scope>-->
-    <!--    </dependency>-->
 
-    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -162,7 +140,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -170,7 +147,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
@@ -178,15 +154,12 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>5.14.2</version>
       <scope>test</scope>
     </dependency>
-
-
 
     <!--    PASSWORD HASHING-->
     <dependency>
@@ -216,7 +189,6 @@
     <!--      <version>5.1.0</version> &lt;!&ndash; актуальная версия &ndash;&gt;-->
     <!--    </dependency>-->
 
-    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
@@ -230,7 +202,6 @@
       <version>2.2.224</version>
       <scope>test</scope>
     </dependency>
-
 
   </dependencies>
 
