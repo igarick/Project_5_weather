@@ -42,9 +42,7 @@ public class WeatherServiceTest {
         weatherService = new WeatherService(mockClient, new JsonMapper(), appProperty);
 
         when(appProperty.getApiBaseUrl()).thenReturn("https://api.openweathermap.org");
-        when(appProperty.getApiWeatherPath()).thenReturn("/data/2.5/weather");
-        when(appProperty.getApiGeocodingPath()).thenReturn("/geo/1.0/direct");
-        when(appProperty.getApiKey()).thenReturn("810674edcfe03956f3d710e75080d5c8");
+        when(appProperty.getApiKey()).thenReturn("123");
 
     }
 
@@ -61,6 +59,7 @@ public class WeatherServiceTest {
                             }
                         ]
                 """;
+        when(appProperty.getApiGeocodingPath()).thenReturn("/geo/1.0/direct");
         when(mockResponse.body()).thenReturn(jsonResponse);
         when(mockResponse.statusCode()).thenReturn(200);
         when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -76,6 +75,7 @@ public class WeatherServiceTest {
 
     @Test
     void invalidStatusCodeShouldThrowException() throws IOException, InterruptedException {
+        when(appProperty.getApiWeatherPath()).thenReturn("/data/2.5/weather");
         when(mockResponse.statusCode()).thenReturn(500);
         when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 

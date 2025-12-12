@@ -36,7 +36,7 @@ public class LocationService {
 
     @Transactional
     public void saveLocation(LocationToSaveDto locationDto) {
-        log.info("Start saving location {}", locationDto.getLocationName());
+        log.info("Start saving location name = {}, lat = {}, lon = {}", locationDto.getLocationName(), locationDto.getLatitude(), locationDto.getLongitude());
         Optional<Session> sessionOptional = sessionRepository.findById(locationDto.getSessionId());
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
         Long userId = session.getUser().getId();
