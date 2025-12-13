@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.weather.dto.session.SessionIdDto;
 import org.weather.dto.weather.WeatherViewDto;
+import org.weather.service.SessionService;
 import org.weather.service.WeatherCardsService;
 import org.weather.validator.CookieParamValidatorAndHandler;
 
@@ -21,12 +22,14 @@ import java.util.UUID;
 public class WeatherController {
     private final CookieParamValidatorAndHandler validatorAndHandler;
     private final WeatherCardsService weatherCardsService;
+    private final SessionService sessionService;
 
     @Autowired
     public WeatherController(CookieParamValidatorAndHandler validatorAndHandler,
-                             WeatherCardsService weatherCardsService) {
+                             WeatherCardsService weatherCardsService, SessionService sessionService) {
         this.validatorAndHandler = validatorAndHandler;
         this.weatherCardsService = weatherCardsService;
+        this.sessionService = sessionService;
     }
 
     @GetMapping
@@ -37,8 +40,10 @@ public class WeatherController {
         SessionIdDto currentSessionIdDto = validatorAndHandler.getCurrentSession(sessionIdDto);
 
         List<WeatherViewDto> weatherCards = weatherCardsService.getWeatherCards(currentSessionIdDto);
+        String username = sessionService.getLoginById(sessionId);
 
         model.addAttribute("cards", weatherCards);
+        model.addAttribute("username", username);
         return "index";
     }
 }

@@ -81,14 +81,23 @@ public class SessionService {
     @Transactional
     public void deactivateSession(SessionIdDto sessionIdDto) {
         log.info("Deactivating session = {}", sessionIdDto.getSessionId());
+        Session session = getSession(sessionIdDto.getSessionId());
+        session.setExpiresAt(OffsetDateTime.now(ZoneOffset.UTC).minusMinutes(1));
+    }
+
+    public String getLoginById(UUID sessionId) {
+        Session session = getSession(sessionId);
+        return session.getUser().getLogin();
+    }
+
+    private Session getSession(UUID sessionId) {
         Optional<Session> sessionOptional;
         try {
-            sessionOptional = sessionRepository.findById(sessionIdDto.getSessionId());
+            sessionOptional = sessionRepository.findById(sessionId);
         } catch (Exception e) {
-            log.error("Failed to fetch session by sessionId = {}", sessionIdDto.getSessionId());
+            log.error("Failed to fetch session by sessionId = {}", sessionId);
             throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
         }
-        Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
-        session.setExpiresAt(OffsetDateTime.now(ZoneOffset.UTC).minusMinutes(1));
+        return sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
     }
 }

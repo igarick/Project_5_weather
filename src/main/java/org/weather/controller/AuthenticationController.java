@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,7 @@ public class AuthenticationController {
     public String processSignIn(@ModelAttribute("userDto") @Valid UserLoginDto userDto,
                                 BindingResult bindingResult,
                                 @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
-                                HttpServletResponse response) {
+                                HttpServletResponse response, Model model) {
         if (bindingResult.hasErrors()) {
             return "auth/sign-in";
         }
@@ -81,6 +82,7 @@ public class AuthenticationController {
                 .maxAge(60 * 10)
                 .build();
         response.addHeader("Set-Cookie", sessionIdCookie.toString());
+        model.addAttribute("username", userDto.login());
         return "redirect:/";
     }
 
