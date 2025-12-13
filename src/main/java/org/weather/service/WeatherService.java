@@ -65,7 +65,7 @@ public class WeatherService {
         return locations;
     }
 
-    public WeatherDto getWeatherByCoordinates(BigDecimal latitude, BigDecimal longitude) {          //String latitude, String longitude
+    public WeatherDto getWeatherByCoordinates(BigDecimal latitude, BigDecimal longitude) {
         log.info("Weather request by lat = {} lon = {} to API", latitude, longitude);
         String url = String.format("%s%s?lat=%s&lon=%s&units=metric&appid=%s",
                 appProperty.getApiBaseUrl(),

@@ -8,7 +8,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-//@Setter
 @Builder
 @ToString
 public class LocationToSaveDto {

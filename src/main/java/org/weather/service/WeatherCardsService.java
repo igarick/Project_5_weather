@@ -41,19 +41,16 @@ public class WeatherCardsService {
                 locationSavedDto.getLatitude(),
                 locationSavedDto.getLongitude()
         );
-        weatherByCoordinates.setCity(locationSavedDto.getCity());
-        weatherByCoordinates.setLatitude(locationSavedDto.getLatitude());
-        weatherByCoordinates.setLongitude(locationSavedDto.getLongitude());
-//        WeatherDto.builder()
-//                .weatherInfo(weatherByCoordinates.getWeatherInfo())
-//                .weatherBasePrams(weatherByCoordinates.getWeatherBasePrams())
-//                .country(weatherByCoordinates.getCountry())
-//                .city(locationSavedDto.getCity())
-//                .latitude(locationSavedDto.getLatitude())
-//                .longitude(locationSavedDto.getLongitude())
-//                .build();
-        log.info("Weather by coordinates city = {}, lat = {}, lon = {} mapped", weatherByCoordinates.getCity(), weatherByCoordinates.getLatitude(), weatherByCoordinates.getLongitude());
+        WeatherDto mapped = WeatherDto.builder()
+                .weatherInfo(weatherByCoordinates.getWeatherInfo())
+                .weatherBasePrams(weatherByCoordinates.getWeatherBasePrams())
+                .country(weatherByCoordinates.getCountry())
+                .city(locationSavedDto.getCity())
+                .latitude(locationSavedDto.getLatitude())
+                .longitude(locationSavedDto.getLongitude())
+                .build();
+        log.info("Weather by coordinates city = {}, lat = {}, lon = {} mapped", mapped.getCity(), mapped.getLatitude(), mapped.getLongitude());
 
-        return weatherByCoordinates;
+        return mapped;
     }
 }

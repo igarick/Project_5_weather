@@ -10,17 +10,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @ToString
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherDto {
     @JsonProperty("weather")
     private List<WeatherInfoDto> weatherInfo;
+
     @JsonProperty("main")
     private WeatherBasePramsDto weatherBasePrams;
+
     @JsonProperty("name")
     private String city;
+
     @JsonProperty("sys")
     private CountryDto country;
 

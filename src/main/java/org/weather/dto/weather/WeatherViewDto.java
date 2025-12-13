@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-//@Setter
 @Builder
 @ToString
 public class WeatherViewDto {
