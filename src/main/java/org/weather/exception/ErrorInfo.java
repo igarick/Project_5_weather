@@ -27,7 +27,10 @@ public enum ErrorInfo {
     // dao
     DATA_SAVE_ERROR("Data save error", SC_INTERNAL_SERVER_ERROR),
     DATA_FETCH_ERROR("Data fetch error", SC_INTERNAL_SERVER_ERROR),
-    DATA_DELETE_ERROR("Data delete error", SC_INTERNAL_SERVER_ERROR);
+    DATA_DELETE_ERROR("Data delete error", SC_INTERNAL_SERVER_ERROR),
+
+    //service
+    SAVE_DUPLICATE_LOCATION("Location already exists", SC_CONFLICT);
 
     private final String message;
     private final int statusCode;

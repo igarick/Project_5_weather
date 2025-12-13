@@ -39,20 +39,22 @@ public class LocationService {
         log.info("Start saving location name = {}, lat = {}, lon = {}", locationDto.getLocationName(), locationDto.getLatitude(), locationDto.getLongitude());
         Optional<Session> sessionOptional = sessionRepository.findById(locationDto.getSessionId());
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
-        Long userId = session.getUser().getId();
+        User user = session.getUser();
 
+        if (locationExists(user, locationDto)) {
+            log.info("Location already exists. Skipping saving");
+            return;
+        }
         Location location = Location.builder()
                 .name(locationDto.getLocationName())
-                .user(User.builder()
-                        .id(userId)
-                        .build())
+                .user(user)
                 .latitude(locationDto.getLatitude())
                 .longitude(locationDto.getLongitude())
                 .build();
         try {
             locationRepository.save(location);
         } catch (Exception e) {
-            log.error("Failed to save location name = {}", locationDto.getLocationName());
+            log.error("Failed to save location name = {}", locationDto.getLocationName(), e);
             throw new DaoException(ErrorInfo.DATA_SAVE_ERROR, e);
         }
         log.info("Location {} saved", locationDto.getLocationName());
@@ -62,9 +64,12 @@ public class LocationService {
         log.info("Getting locations for sessionId {}", sessionIdDto.getSessionId());
         Long userId = getUserIdBySession(sessionIdDto.getSessionId());
 
-        List<Location> locations = null;
+
+        User user= getUserBySession(sessionIdDto.getSessionId());
+
+        List<Location> locations;
         try {
-            locations = locationRepository.findAllByUser_Id(userId);
+            locations = locationRepository.findAllByUser(user);
         } catch (Exception e) {
             log.error("Failed to fetch locations");
             throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
@@ -104,5 +109,24 @@ public class LocationService {
                 .latitude(location.getLatitude())
                 .longitude(location.getLongitude())
                 .build();
+    }
+
+    private User getUserBySession(UUID sessionId) {
+        Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
+        Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
+
+        return session.getUser();
+    }
+
+    private boolean locationExists(User user, LocationToSaveDto locationDto) {
+        try {
+            return locationRepository.existsByUserAndNameAndLatitudeAndLongitude(
+                    user,
+                    locationDto.getLocationName(),
+                    locationDto.getLatitude(),
+                    locationDto.getLongitude());
+        } catch (Exception e) {
+            throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
+        }
     }
 }

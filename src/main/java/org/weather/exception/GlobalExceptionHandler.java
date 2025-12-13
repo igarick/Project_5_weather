@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.weather.exception.app.DuplicateLocationException;
 import org.weather.exception.app.SessionNotFoundException;
 
 @Slf4j
@@ -28,5 +29,10 @@ public class GlobalExceptionHandler {
         model.addAttribute("errorMessage", ErrorInfo.UNKNOWN_ERROR.getMessage());
         model.addAttribute("statusCode", ErrorInfo.UNKNOWN_ERROR.getStatusCode());
         return "error";
+    }
+
+    @ExceptionHandler(DuplicateLocationException.class)
+    public String handleDuplicateLocationSave(DuplicateLocationException e) {
+        return "redirect:/";
     }
 }
