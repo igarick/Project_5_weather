@@ -39,6 +39,7 @@ public class LocationController {
             return "redirect:/";
         }
         UUID sessionId = validatorAndHandler.extractSessionId(sessionIdParam);
+        validatorAndHandler.validateSessionExists(sessionId);
 
         LocationToSaveDto location = LocationToSaveDto.builder()
                 .sessionId(sessionId)
@@ -60,6 +61,7 @@ public class LocationController {
             return "redirect:/";
         }
         UUID sessionId = validatorAndHandler.extractSessionId(sessionIdParam);
+        validatorAndHandler.validateSessionExists(sessionId);
 
         LocationToDeleteDto location = LocationToDeleteDto.builder()
                 .sessionId(sessionId)
