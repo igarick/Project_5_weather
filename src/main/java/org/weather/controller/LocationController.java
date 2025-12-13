@@ -39,7 +39,8 @@ public class LocationController {
         if (!StringUtils.hasText(locationNameParam) ||
             !StringUtils.hasText(latitudeParam) ||
             !StringUtils.hasText(longitudeParam)) {
-            return "redirect:/search-results";
+            log.error("Coordinates are absent");
+            return "redirect:/";
         }
         UUID sessionId = validatorAndHandler.extractSessionId(sessionIdParam);
 
@@ -59,7 +60,8 @@ public class LocationController {
                          @RequestParam("longitude") String longitudeParam) {
         if (!StringUtils.hasText(latitudeParam) ||
             !StringUtils.hasText(longitudeParam)) {
-            return "redirect:/search-results";
+            log.error("Coordinates are absent");
+            return "redirect:/";
         }
         UUID sessionId = validatorAndHandler.extractSessionId(sessionIdParam);
 

@@ -47,7 +47,7 @@ public class AuthenticationController {
     public String processSignIn(@ModelAttribute("userDto") @Valid UserLoginDto userDto,
                                 BindingResult bindingResult,
                                 @CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
-                                HttpServletResponse response, Model model) {
+                                HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "auth/sign-in";
         }
@@ -82,7 +82,6 @@ public class AuthenticationController {
                 .maxAge(60 * 10)
                 .build();
         response.addHeader("Set-Cookie", sessionIdCookie.toString());
-        model.addAttribute("username", userDto.login());
         return "redirect:/";
     }
 

@@ -15,8 +15,6 @@
             Weather Tracker
         </a>
         <div class="d-flex align-items-center">
-<!--            <span class="navbar-text me-3">zhukovsd</span>-->
-<!--            <span th:text="${card.description}">N/A</span>-->
             <span class="navbar-text me-3" th:text="${username}">Guest</span>
             <form method="post" th:action="@{/auth/logout}">
                 <button type="submit" class="btn btn-outline-danger">Sign out</button>
@@ -32,6 +30,9 @@
                 <div class="d-flex">
                     <div class="input-group flex-grow-1 me-2">
                         <input class="form-control" type="text" name="locationName" placeholder="Enter location" required>
+
+<!--                        <input type="hidden" name="username" th:value="${username}">-->
+
                         <button class="btn btn-outline-secondary btn-sm" type="button"
                                 onclick="this.previousElementSibling.value=''">
                             &times;

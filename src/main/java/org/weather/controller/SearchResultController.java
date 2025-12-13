@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.weather.dto.location.LocationDto;
 import org.weather.dto.location.LocationNameDto;
+import org.weather.service.SessionService;
 import org.weather.service.WeatherService;
 import org.weather.validator.CookieParamValidatorAndHandler;
 
@@ -20,11 +21,14 @@ import java.util.UUID;
 public class SearchResultController {
     private final WeatherService weatherService;
     private final CookieParamValidatorAndHandler validatorAndHandler;
+    private final SessionService sessionService;
+
 
     @Autowired
-    public SearchResultController(WeatherService weatherService, CookieParamValidatorAndHandler validatorAndHandler) {
+    public SearchResultController(WeatherService weatherService, CookieParamValidatorAndHandler validatorAndHandler, SessionService sessionService) {
         this.weatherService = weatherService;
         this.validatorAndHandler = validatorAndHandler;
+        this.sessionService = sessionService;
     }
 
     @GetMapping
@@ -42,11 +46,14 @@ public class SearchResultController {
 
         UUID sessionId = validatorAndHandler.extractSessionId(sessionIdParam);
         validatorAndHandler.validateSessionExists(sessionId);
+        String username = sessionService.getLoginById(sessionId);
 
         LocationNameDto locationNameDto = new LocationNameDto(locationNameParam);
         List<LocationDto> locations = weatherService.getLocationByCityName(locationNameDto);
 
         model.addAttribute("locations", locations);
+        model.addAttribute("username", username);
+
         return "search-results";
     }
 }
