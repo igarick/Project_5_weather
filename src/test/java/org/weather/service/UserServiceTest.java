@@ -37,9 +37,9 @@ class UserServiceTest {
 
         userService.registerUser(dto);
 
-        Optional<User> userOptional = userRepository.findByLogin(dto.getLogin());
+        Optional<User> userOptional = userRepository.findByLogin(dto.login());
         assertThat(userOptional).isPresent();
-        userOptional.ifPresent(user -> assertThat(user.getLogin()).isEqualTo(dto.getLogin()));
+        userOptional.ifPresent(user -> assertThat(user.getLogin()).isEqualTo(dto.login()));
     }
 
     @Test

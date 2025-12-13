@@ -44,6 +44,14 @@ public class WeatherCardsService {
         weatherByCoordinates.setCity(locationSavedDto.getCity());
         weatherByCoordinates.setLatitude(locationSavedDto.getLatitude());
         weatherByCoordinates.setLongitude(locationSavedDto.getLongitude());
+//        WeatherDto.builder()
+//                .weatherInfo(weatherByCoordinates.getWeatherInfo())
+//                .weatherBasePrams(weatherByCoordinates.getWeatherBasePrams())
+//                .country(weatherByCoordinates.getCountry())
+//                .city(locationSavedDto.getCity())
+//                .latitude(locationSavedDto.getLatitude())
+//                .longitude(locationSavedDto.getLongitude())
+//                .build();
         log.info("Weather by coordinates city = {}, lat = {}, lon = {} mapped", weatherByCoordinates.getCity(), weatherByCoordinates.getLatitude(), weatherByCoordinates.getLongitude());
 
         return weatherByCoordinates;

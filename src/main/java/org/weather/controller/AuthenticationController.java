@@ -96,7 +96,7 @@ public class AuthenticationController {
             return "auth/sign-up";
         }
 
-        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+        if (!userDto.password().equals(userDto.confirmPassword())) {
             bindingResult.reject("", "Passwords don't match");
             return "auth/sign-up";
         }

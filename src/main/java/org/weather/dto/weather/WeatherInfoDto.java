@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
+//@Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherInfoDto {

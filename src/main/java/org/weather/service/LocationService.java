@@ -62,10 +62,7 @@ public class LocationService {
 
     public List<LocationSavedDto> findAllBySessionId(SessionIdDto sessionIdDto) {
         log.info("Getting locations for sessionId {}", sessionIdDto.getSessionId());
-        Long userId = getUserIdBySession(sessionIdDto.getSessionId());
-
-
-        User user= getUserBySession(sessionIdDto.getSessionId());
+        User user = getUserBySession(sessionIdDto.getSessionId());
 
         List<Location> locations;
         try {
@@ -74,22 +71,20 @@ public class LocationService {
             log.error("Failed to fetch locations");
             throw new DaoException(ErrorInfo.DATA_FETCH_ERROR, e);
         }
-
         List<LocationSavedDto> locationSavedDtos = locations.stream()
                 .map(this::mapToLocationSavedDto)
                 .toList();
 
-        log.info("Found {} locations for userId {}", locations.size(), userId);
+        log.info("Found {} locations for userId {}", locations.size(), user.getLogin());
         return locationSavedDtos;
     }
 
     @Transactional
     public void deleteLocation(LocationToDeleteDto location) {
         log.info("Deleting location lat = {}, lon = {} for sessionId {}", location.getLatitude(), location.getLongitude(), location.getSessionId());
-        Long userId = getUserIdBySession(location.getSessionId());
-
+        User user = getUserIdBySession(location.getSessionId());
         try {
-            locationRepository.deleteByUser_IdAndLatitudeAndLongitude(userId, location.getLatitude(), location.getLongitude());
+            locationRepository.deleteByUserAndLatitudeAndLongitude(user, location.getLatitude(), location.getLongitude());
         } catch (Exception e) {
             log.error("Failed to delete location");
             throw new DaoException(ErrorInfo.DATA_DELETE_ERROR, e);
@@ -97,10 +92,10 @@ public class LocationService {
         log.info("Deleted location lat = {}, lon = {}", location.getLatitude(), location.getLongitude());
     }
 
-    private Long getUserIdBySession(UUID sessionId) {
+    private User getUserIdBySession(UUID sessionId) {
         Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
         Session session = sessionOptional.orElseThrow(() -> new SessionNotFoundException(ErrorInfo.SESSION_NOT_FOUND));
-        return session.getUser().getId();
+        return session.getUser();
     }
 
     private LocationSavedDto mapToLocationSavedDto(Location location) {
