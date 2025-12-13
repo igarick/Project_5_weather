@@ -1,5 +1,6 @@
 package org.weather.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,18 +19,11 @@ import java.util.UUID;
 @Slf4j
 @Controller
 @RequestMapping("/search-results")
+@RequiredArgsConstructor
 public class SearchResultController {
     private final WeatherService weatherService;
     private final CookieParamValidatorAndHandler validatorAndHandler;
     private final SessionService sessionService;
-
-
-    @Autowired
-    public SearchResultController(WeatherService weatherService, CookieParamValidatorAndHandler validatorAndHandler, SessionService sessionService) {
-        this.weatherService = weatherService;
-        this.validatorAndHandler = validatorAndHandler;
-        this.sessionService = sessionService;
-    }
 
     @GetMapping
     public String getLocations() {

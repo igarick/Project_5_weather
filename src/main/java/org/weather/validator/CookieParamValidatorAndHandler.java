@@ -1,5 +1,6 @@
 package org.weather.validator;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class CookieParamValidatorAndHandler {
     private final Logger log = LoggerFactory.getLogger(CookieParamValidatorAndHandler.class);
 
     private final SessionService sessionService;
-
-    @Autowired
-    public CookieParamValidatorAndHandler(SessionService sessionService) {
-        this.sessionService = sessionService;
-    }
 
     public void validateSessionExists(UUID sessionId) {
         Optional<SessionIdDto> currentSession = sessionService.findCurrentSession(new SessionIdDto(sessionId));

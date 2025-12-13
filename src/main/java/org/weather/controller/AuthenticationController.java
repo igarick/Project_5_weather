@@ -2,6 +2,7 @@ package org.weather.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
@@ -25,18 +26,11 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
     private final UserService userService;
     private final SessionService sessionService;
     private final CookieParamValidatorAndHandler validatorAndHandler;
-
-    @Autowired
-    public AuthenticationController(UserService userService, SessionService sessionService, CookieParamValidatorAndHandler validatorAndHandler) {
-        this.userService = userService;
-        this.sessionService = sessionService;
-        this.validatorAndHandler = validatorAndHandler;
-    }
-
 
     @GetMapping("/sign-in")
     public String showSignInForm(@ModelAttribute("userDto") UserLoginDto userDto) {

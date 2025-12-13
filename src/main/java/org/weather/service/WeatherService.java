@@ -3,6 +3,7 @@ package org.weather.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,18 +29,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class WeatherService {
     private final HttpClient client;
     private final JsonMapper jsonMapper;
     private final AppProperty appProperty;
-
-    @Autowired
-    public WeatherService(HttpClient client, JsonMapper jsonMapper, AppProperty appProperty) {
-        this.client = client;
-        this.jsonMapper = jsonMapper;
-        this.appProperty = appProperty;
-    }
 
     public List<LocationDto> getLocationByCityName(LocationNameDto locationNameDto) {
         log.info("Request by cityName = {} to API", locationNameDto.getLocalName());

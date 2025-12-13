@@ -1,5 +1,6 @@
 package org.weather.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,12 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class WeatherCardsService {
     private final LocationService locationService;
     private final WeatherService weatherService;
     private final WeatherMapper weatherMapper;
-
-    @Autowired
-    public WeatherCardsService(LocationService locationService, WeatherService weatherService, WeatherMapper weatherMapper) {
-        this.locationService = locationService;
-        this.weatherService = weatherService;
-        this.weatherMapper = weatherMapper;
-    }
 
     public List<WeatherViewDto> getWeatherCards(SessionIdDto sessionIdDto) {
         List<LocationSavedDto> locations = locationService.findAllBySessionId(sessionIdDto);

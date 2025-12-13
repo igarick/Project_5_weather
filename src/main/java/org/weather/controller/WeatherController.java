@@ -1,5 +1,6 @@
 package org.weather.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,18 +20,11 @@ import java.util.UUID;
 @Slf4j
 @Controller
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class WeatherController {
     private final CookieParamValidatorAndHandler validatorAndHandler;
     private final WeatherCardsService weatherCardsService;
     private final SessionService sessionService;
-
-    @Autowired
-    public WeatherController(CookieParamValidatorAndHandler validatorAndHandler,
-                             WeatherCardsService weatherCardsService, SessionService sessionService) {
-        this.validatorAndHandler = validatorAndHandler;
-        this.weatherCardsService = weatherCardsService;
-        this.sessionService = sessionService;
-    }
 
     @GetMapping
     public String home(@CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,

@@ -1,5 +1,6 @@
 package org.weather.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,16 +22,11 @@ import java.util.UUID;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class SessionService {
     private final SessionRepository sessionRepository;
     private final SessionProperty sessionProperty;
-
-    @Autowired
-    public SessionService(SessionRepository sessionRepository, SessionProperty sessionProperty) {
-        this.sessionRepository = sessionRepository;
-        this.sessionProperty = sessionProperty;
-    }
 
     public Optional<SessionIdDto> findCurrentSession(SessionIdDto sessionIdDto) {
         log.info("Searching for session by sessionId = {}", sessionIdDto.getSessionId());

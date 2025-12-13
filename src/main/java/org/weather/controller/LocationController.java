@@ -1,5 +1,6 @@
 package org.weather.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,12 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/location")
+@RequiredArgsConstructor
 public class LocationController {
     private final Logger log = LoggerFactory.getLogger(LocationController.class);
 
     private final CookieParamValidatorAndHandler validatorAndHandler;
     private final LocationService locationService;
-
-    @Autowired
-    public LocationController(CookieParamValidatorAndHandler validatorAndHandler, LocationService locationService) {
-        this.validatorAndHandler = validatorAndHandler;
-        this.locationService = locationService;
-    }
 
     @PostMapping("/add")
     public String addLocation(@CookieValue(value = "sessionId", defaultValue = "") String sessionIdParam,
