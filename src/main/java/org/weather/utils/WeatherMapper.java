@@ -1,38 +1,47 @@
 package org.weather.utils;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.weather.dto.weather.WeatherDto;
+import org.weather.dto.weather.WeatherInfoDto;
 import org.weather.dto.weather.WeatherViewDto;
-import org.weather.exception.ErrorInfo;
-import org.weather.exception.app.MappingException;
 
-@Slf4j
-@Component
-public class WeatherMapper {
-    public WeatherViewDto toView(WeatherDto weatherDto) {
-        log.info("Incoming WeatherDto: {}", weatherDto);
-        try {
-            String description = weatherDto.getWeatherInfo().getFirst().getDescription();
-            String capitalized = description.substring(0, 1).toUpperCase() + description.substring(1);
+import java.util.List;
 
-            return WeatherViewDto.builder()
-                    .country(weatherDto.getCountry().getCountry())
-                    .city(weatherDto.getCity())
-                    .temperature(round(weatherDto.getWeatherBasePrams().getTemperature()))
-                    .feelsLike(round(weatherDto.getWeatherBasePrams().getFeelsLike()))
-                    .humidity(weatherDto.getWeatherBasePrams().getHumidity())
-                    .description(capitalized)
-                    .icon(weatherDto.getWeatherInfo().getFirst().getIcon())
-                    .latitude(weatherDto.getLatitude())
-                    .longitude(weatherDto.getLongitude())
-                    .build();
-        } catch (Exception e) {
-            throw new MappingException(ErrorInfo.MAPPING_RESPONSE_API_ERROR, e);
-        }
+@Mapper(componentModel = "spring")
+public interface WeatherMapper {
+    @Mapping(target = "country", source = "country.country")
+    @Mapping(target = "temperature", source = "weatherBasePrams.temperature",
+            qualifiedByName = "round")
+    @Mapping(target = "feelsLike", source = "weatherBasePrams.feelsLike",
+            qualifiedByName = "round")
+    @Mapping(target = "humidity", source = "weatherBasePrams.humidity")
+    @Mapping(target = "description", source = "weatherInfo",
+            qualifiedByName = "capitalizeDescription")
+    @Mapping(target = "icon", source = "weatherInfo",
+            qualifiedByName = "extractIcon")
+    WeatherViewDto toView(WeatherDto weatherDto);
+
+    @Named("round")
+    static int round(double value) {
+        return (int) Math.round(value);
     }
 
-    private int round(double value) {
-        return (int) Math.round(value);
+    @Named("capitalizeDescription")
+    static String capitalizeDescription(List<WeatherInfoDto> weatherInfo) {
+        if (weatherInfo == null || weatherInfo.isEmpty()) {
+            return "N/A";
+        }
+        String description = weatherInfo.get(0).getDescription();
+        return description.substring(0, 1).toUpperCase() + description.substring(1);
+    }
+
+    @Named("extractIcon")
+    static String extractIcon(List<WeatherInfoDto> weatherInfo) {
+        if (weatherInfo == null || weatherInfo.isEmpty()) {
+            return null;
+        }
+        return weatherInfo.get(0).getIcon();
     }
 }
